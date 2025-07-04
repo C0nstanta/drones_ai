@@ -7,6 +7,10 @@
   
   <!-- Page Title -->
   <title>{% block title %}{{ page_title|default('AI-Driven Drone Solutions') }} | Adaptive Auto Hub{% endblock %}</title>
+
+ <!-- Mobile Fixes -->
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-fixes.css') }}">
+ 
   
   <!-- Meta Tags -->
   <meta name="description" content="{{ meta_description|default('Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection.') }}">
@@ -214,6 +218,66 @@
   <!-- JavaScript -->
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   
+ <!-- Mobile Menu -->
+ <script src="{{ url_for('static', filename='js/mobile-menu-fix.js') }}" defer></script>
+
+ <!-- Fix for header shadow and styling issues -->
+
+<script>
+// Simple mobile menu that works
+document.addEventListener('DOMContentLoaded', function() {
+    var toggle = document.querySelector('.nav__toggle');
+    if (!toggle) return;
+    
+    // Create overlay
+    var overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;z-index:998;';
+    document.body.appendChild(overlay);
+    
+    // Create mobile menu
+    var mobileMenu = document.createElement('div');
+    mobileMenu.className = 'mobile-nav';
+    mobileMenu.style.cssText = 'position:fixed;top:0;right:-100%;width:280px;height:100vh;background:white;z-index:999;transition:right 0.3s;overflow-y:auto;';
+    
+    // Copy navigation items
+    var nav = document.querySelector('.nav__menu');
+    if (nav) {
+        mobileMenu.innerHTML = '<div style="padding:20px;">' + nav.innerHTML + '</div>';
+    }
+    document.body.appendChild(mobileMenu);
+    
+    // Style the menu items
+    mobileMenu.querySelectorAll('a').forEach(function(link) {
+        link.style.cssText = 'display:block;padding:12px;margin-bottom:8px;color:#374151;text-decoration:none;background:#f3f4f6;border-radius:8px;';
+    });
+    
+    // Toggle function
+    toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        var isOpen = mobileMenu.style.right === '0px';
+        
+        if (isOpen) {
+            mobileMenu.style.right = '-100%';
+            overlay.style.display = 'none';
+            document.body.style.overflow = '';
+        } else {
+            mobileMenu.style.right = '0';
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+    });
+    
+    // Close on overlay click
+    overlay.addEventListener('click', function() {
+        mobileMenu.style.right = '-100%';
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+    });
+});
+</script>
+
+
   {% block scripts %}{% endblock %}
 </body>
 </html>

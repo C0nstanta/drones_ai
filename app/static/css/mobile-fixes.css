@@ -1,0 +1,902 @@
+/* /app/static/css/mobile-fixes.css */
+/* Complete Mobile Fixes for Adaptive Auto Hub
+   Performance-optimized mobile compatibility enhancements
+   Created for immediate implementation */
+
+/* =====================================================
+   Mobile Variables
+   ===================================================== */
+:root {
+    --mobile-header-height: 60px;
+    --mobile-menu-width: 280px;
+    --touch-target-min: 44px;
+    --mobile-padding: 16px;
+    --mobile-border-radius: 8px;
+    --mobile-transition: 0.3s ease;
+    --mobile-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   Base Mobile Resets
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Prevent zoom on input focus (iOS) */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    input[type="search"],
+    input[type="url"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+    
+    /* Remove tap highlight */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+        position: relative;
+    }
+}
+
+/* =====================================================
+   Header & Navigation Fixes
+   ===================================================== */
+.header,
+header,
+.site-header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .header,
+    header {
+        height: var(--mobile-header-height);
+    }
+    
+    /* Fix container padding */
+    .header .container,
+    header .container {
+        padding: 0 var(--mobile-padding);
+        height: 100%;
+    }
+    
+    /* Navigation layout */
+    .nav,
+    .navigation,
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+    
+    /* Logo optimization */
+    .nav__logo,
+    .logo,
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        max-width: 150px;
+        height: 40px;
+    }
+    
+    .nav__logo img,
+    .logo img {
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
+    }
+    
+    /* Hide desktop menu */
+    .nav__menu,
+    .nav-menu,
+    .desktop-menu,
+    nav > ul {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   Hamburger Menu Button Fix
+   ===================================================== */
+.nav__toggle,
+.menu-toggle,
+.hamburger,
+button[aria-label*="menu" i],
+button.mobile-menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav__toggle,
+    .menu-toggle,
+    .hamburger,
+    button[aria-label*="menu" i] {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: var(--touch-target-min);
+        height: var(--touch-target-min);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--mobile-border-radius);
+        cursor: pointer;
+        position: relative;
+        transition: background-color var(--mobile-transition);
+    }
+    
+    /* Remove any text content */
+    .nav__toggle {
+        font-size: 0;
+        color: transparent;
+    }
+    
+    /* Create hamburger icon with pseudo elements */
+    .nav__toggle::before,
+    .nav__toggle::after,
+    .menu-toggle::before,
+    .menu-toggle::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background-color: #374151;
+        border-radius: 2px;
+        transition: all var(--mobile-transition);
+    }
+    
+    .nav__toggle::before,
+    .menu-toggle::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 -8px 0 #374151, 0 8px 0 #374151;
+    }
+    
+    .nav__toggle::after,
+    .menu-toggle::after {
+        display: none;
+    }
+    
+    /* Active state animation */
+    .nav__toggle.is-active::before,
+    .nav__toggle[aria-expanded="true"]::before {
+        box-shadow: none;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    
+    .nav__toggle.is-active::after,
+    .nav__toggle[aria-expanded="true"]::after {
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        background-color: #374151;
+    }
+}
+
+/* =====================================================
+   Mobile Menu Styles
+   ===================================================== */
+.mobile-menu,
+.nav__mobile-menu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu,
+    .nav__mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: var(--mobile-menu-width);
+        max-width: 85vw;
+        height: 100vh;
+        background: #ffffff;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+        transition: transform var(--mobile-transition);
+        z-index: 1000;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .mobile-menu.is-open,
+    .nav__mobile-menu.is-open {
+        transform: translateX(-100%);
+    }
+    
+    /* Menu header */
+    .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--mobile-padding);
+        border-bottom: 1px solid #e5e7eb;
+        min-height: var(--mobile-header-height);
+    }
+    
+    .mobile-menu-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1f2937;
+    }
+    
+    .mobile-menu-close {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all var(--mobile-transition);
+    }
+    
+    .mobile-menu-close:hover {
+        background: #f3f4f6;
+    }
+    
+    /* Menu content */
+    .mobile-menu-content {
+        padding: var(--mobile-padding);
+    }
+    
+    .mobile-menu-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .mobile-menu-content li {
+        margin-bottom: 4px;
+    }
+    
+    .mobile-menu-content a {
+        display: block;
+        padding: 12px 16px;
+        color: #374151;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: var(--mobile-border-radius);
+        transition: all var(--mobile-transition);
+    }
+    
+    .mobile-menu-content a:hover,
+    .mobile-menu-content a:active {
+        background: #f3f4f6;
+        color: #1f2937;
+    }
+    
+    .mobile-menu-content a.active {
+        background: #e0e7ff;
+        color: #3730a3;
+    }
+}
+
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--mobile-transition);
+        z-index: 999;
+    }
+    
+    .mobile-menu-overlay.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* =====================================================
+   Form Input Enhancements
+   ===================================================== */
+@media (max-width: 768px) {
+    /* All form inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    input[type="search"],
+    input[type="url"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 16px;
+        font-size: 16px;
+        line-height: 1.5;
+        border: 1px solid #d1d5db;
+        border-radius: var(--mobile-border-radius);
+        background-color: #ffffff;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        transition: all var(--mobile-transition);
+    }
+    
+    /* Focus states */
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Textarea specific */
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    /* Select dropdown arrow */
+    select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        padding-right: 40px;
+    }
+    
+    /* Labels */
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #374151;
+    }
+    
+    /* Form groups */
+    .form-group,
+    .form-field,
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    /* Error messages */
+    .error-message,
+    .form-error {
+        color: #dc2626;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+}
+
+/* =====================================================
+   Checkbox and Radio Button Fixes
+   ===================================================== */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    margin: 0 8px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #d1d5db;
+    background: #ffffff;
+    position: relative;
+    flex-shrink: 0;
+}
+
+input[type="checkbox"] {
+    border-radius: 4px;
+}
+
+input[type="radio"] {
+    border-radius: 50%;
+}
+
+/* Checked states */
+input[type="checkbox"]:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 6px;
+    height: 10px;
+    border: 2px solid #ffffff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+}
+
+input[type="radio"]:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+/* Label wrapper for better touch targets */
+label:has(input[type="checkbox"]),
+label:has(input[type="radio"]) {
+    display: flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* =====================================================
+   Button Enhancements
+   ===================================================== */
+@media (max-width: 768px) {
+    /* All buttons */
+    button,
+    .btn,
+    .button,
+    [type="submit"],
+    [type="button"],
+    [role="button"] {
+        min-height: 48px;
+        padding: 14px 24px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: var(--mobile-border-radius);
+        transition: all var(--mobile-transition);
+        touch-action: manipulation;
+        cursor: pointer;
+    }
+    
+    /* Primary buttons full width */
+    .btn-primary,
+    .btn--primary,
+    button[type="submit"] {
+        width: 100%;
+        background-color: #3b82f6;
+        color: #ffffff;
+        border: none;
+    }
+    
+    .btn-primary:active,
+    .btn--primary:active {
+        background-color: #2563eb;
+        transform: scale(0.98);
+    }
+    
+    /* Secondary buttons */
+    .btn-secondary,
+    .btn--secondary {
+        width: 100%;
+        background-color: #f3f4f6;
+        color: #374151;
+        border: 1px solid #d1d5db;
+    }
+    
+    /* Button groups */
+    .button-group,
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* =====================================================
+   Typography & Content Spacing
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Base typography */
+    body {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    /* Headings */
+    h1, .h1 {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+    
+    h2, .h2 {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 14px;
+    }
+    
+    h3, .h3 {
+        font-size: 20px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+    
+    h4, .h4 {
+        font-size: 18px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+    
+    h5, .h5,
+    h6, .h6 {
+        font-size: 16px;
+        line-height: 1.4;
+        margin-bottom: 8px;
+    }
+    
+    /* Paragraphs */
+    p {
+        margin-bottom: 16px;
+    }
+    
+    /* Lists */
+    ul, ol {
+        padding-left: 24px;
+        margin-bottom: 16px;
+    }
+    
+    li {
+        margin-bottom: 8px;
+    }
+    
+    /* Container padding */
+    .container {
+        padding-left: var(--mobile-padding);
+        padding-right: var(--mobile-padding);
+    }
+    
+    /* Section spacing */
+    .section,
+    section {
+        padding: 40px 0;
+    }
+    
+    .section--small {
+        padding: 24px 0;
+    }
+    
+    .section--large {
+        padding: 56px 0;
+    }
+}
+
+/* =====================================================
+   Image Optimizations
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Base image styles */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    /* Hero/banner images */
+    .hero img,
+    .banner img,
+    .hero-image,
+    .banner-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    /* Product images */
+    .product-image,
+    .gallery-image {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+    }
+    
+    /* Thumbnails */
+    .thumbnail,
+    .thumb {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+}
+
+/* =====================================================
+   Table Responsiveness
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Scrollable table wrapper */
+    .table-responsive,
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+    
+    table {
+        min-width: 100%;
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 12px;
+        white-space: nowrap;
+    }
+}
+
+/* =====================================================
+   Card Components
+   ===================================================== */
+@media (max-width: 768px) {
+    .card {
+        border-radius: var(--mobile-border-radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--mobile-shadow);
+    }
+    
+    .card-header {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .card-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    
+    .card-body {
+        font-size: 16px;
+    }
+    
+    .card-footer {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e5e7eb;
+    }
+}
+
+/* =====================================================
+   Utility Classes
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Display utilities */
+    .mobile-hidden { display: none !important; }
+    .mobile-block { display: block !important; }
+    .mobile-flex { display: flex !important; }
+    .mobile-inline-block { display: inline-block !important; }
+    
+    /* Text alignment */
+    .mobile-text-center { text-align: center !important; }
+    .mobile-text-left { text-align: left !important; }
+    .mobile-text-right { text-align: right !important; }
+    
+    /* Flexbox utilities */
+    .mobile-flex-column { flex-direction: column !important; }
+    .mobile-flex-wrap { flex-wrap: wrap !important; }
+    .mobile-justify-center { justify-content: center !important; }
+    .mobile-items-center { align-items: center !important; }
+    
+    /* Width utilities */
+    .mobile-w-full { width: 100% !important; }
+    .mobile-w-auto { width: auto !important; }
+    
+    /* Margin utilities */
+    .mobile-m-0 { margin: 0 !important; }
+    .mobile-mt-0 { margin-top: 0 !important; }
+    .mobile-mb-0 { margin-bottom: 0 !important; }
+    .mobile-mt-2 { margin-top: 8px !important; }
+    .mobile-mb-2 { margin-bottom: 8px !important; }
+    .mobile-mt-4 { margin-top: 16px !important; }
+    .mobile-mb-4 { margin-bottom: 16px !important; }
+    
+    /* Padding utilities */
+    .mobile-p-0 { padding: 0 !important; }
+    .mobile-p-2 { padding: 8px !important; }
+    .mobile-p-4 { padding: 16px !important; }
+}
+
+/* =====================================================
+   Footer Mobile Optimization
+   ===================================================== */
+@media (max-width: 768px) {
+    .footer,
+    .site-footer {
+        padding: 40px 0 20px;
+    }
+    
+    .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+    
+    .footer-section {
+        text-align: center;
+    }
+    
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* =====================================================
+   Landscape Orientation Adjustments
+   ===================================================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Reduce vertical spacing */
+    .header {
+        height: 50px;
+    }
+    
+    .mobile-menu-header {
+        min-height: 50px;
+    }
+    
+    .section {
+        padding: 24px 0;
+    }
+    
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+        min-height: 40px;
+        padding: 8px 12px;
+    }
+    
+    button,
+    .btn {
+        min-height: 40px;
+        padding: 10px 20px;
+    }
+}
+
+/* =====================================================
+   Safe Area Support (iPhone X+)
+   ===================================================== */
+@supports (padding: max(0px)) {
+    @media (max-width: 768px) {
+        .header {
+            padding-top: env(safe-area-inset-top);
+        }
+        
+        .container {
+            padding-left: max(var(--mobile-padding), env(safe-area-inset-left));
+            padding-right: max(var(--mobile-padding), env(safe-area-inset-right));
+        }
+        
+        .mobile-menu {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .footer {
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+        
+        .fixed-bottom,
+        .sticky-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+}
+
+/* =====================================================
+   Performance Optimizations
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Reduce animations for performance */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    
+    /* Hardware acceleration for animations */
+    .mobile-menu,
+    .nav__mobile-menu,
+    .mobile-menu-overlay {
+        will-change: transform, opacity;
+    }
+    
+    /* Disable hover effects on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+        a:hover,
+        button:hover {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+/* =====================================================
+   Print Styles
+   ===================================================== */
+@media print {
+    .nav__toggle,
+    .mobile-menu,
+    .mobile-menu-overlay,
+    .mobile-hidden-print {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   Body Scroll Lock When Menu Open
+   ===================================================== */
+body.mobile-menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}

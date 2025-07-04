@@ -1,0 +1,246 @@
+/* /app/static/css/video-hero.css */
+/* Minimal video background styles for main page hero section */
+
+/* Transparent Header on Video Pages */
+body:has(.hero-video-bg) .header,
+body:has(.hero-video-bg) .nav {
+  background: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
+}
+
+/* Add background on scroll for better readability */
+body:has(.hero-video-bg) .header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure nav links are visible on transparent header */
+body:has(.hero-video-bg) .nav__link {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body:has(.hero-video-bg) .nav__logo {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Fallback for browsers without :has() support */
+.has-video-hero .header,
+.has-video-hero .nav {
+  background: transparent;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
+}
+
+.has-video-hero .header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.has-video-hero .nav__link,
+.has-video-hero .nav__logo {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transition: color 0.3s ease;
+}
+
+.has-video-hero .header.scrolled .nav__link,
+.has-video-hero .header.scrolled .nav__logo {
+  color: var(--brand-primary);
+  text-shadow: none;
+}
+
+/* Special styling for Contact CTA button in transparent header */
+.has-video-hero .nav__link--cta {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.has-video-hero .nav__link--cta:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+}
+
+.has-video-hero .header.scrolled .nav__link--cta {
+  background: var(--brand-primary);
+  color: white;
+  border-color: var(--brand-primary);
+}
+
+.has-video-hero .header.scrolled .nav__link--cta:hover {
+  background: var(--brand-primary-dark);
+  border-color: var(--brand-primary-dark);
+}
+
+/* Ensure header is fixed for transparent effect */
+.has-video-hero .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Add padding to body to account for fixed header */
+.has-video-hero {
+  padding-top: 0; /* Remove default padding since hero is full height */
+}
+
+/* Video Background Hero */
+.hero-video-bg {
+  position: relative;
+  overflow: hidden;
+  /* Remove the gradient background from original hero */
+  background: none;
+  /* Add padding-top to account for fixed header */
+  padding-top: var(--header-height, 72px);
+}
+
+/* Video Wrapper - Extend to full viewport */
+.video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Hero section should also be full viewport */
+.hero-video-bg {
+  min-height: 100vh;
+}
+
+/* Video Element */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+/* Video Overlay for Better Text Readability */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 58, 138, 0.7) 0%,
+    rgba(30, 58, 138, 0.5) 50%,
+    rgba(30, 58, 138, 0.7) 100%
+  );
+  z-index: 2;
+}
+
+/* Ensure Content is Above Video and Centered */
+.hero-video-bg .container {
+  position: relative;
+  z-index: 3;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust hero content for better visibility on video */
+.hero-video-bg .hero__content {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.hero-video-bg .hero__title {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.hero-video-bg .hero__description {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Button adjustments for video background */
+.hero-video-bg .btn {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hero-video-bg .btn--primary {
+  background: white;
+  color: var(--brand-primary);
+  border-color: white;
+}
+
+.hero-video-bg .btn--primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hero-video-bg .btn--secondary {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.hero-video-bg .btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  color: white;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  /* On mobile, video might be too heavy - consider showing poster only */
+  .hero-video {
+    /* Still show video but ensure it doesn't cause performance issues */
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  /* Stronger overlay on mobile for better readability */
+  .video-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(30, 58, 138, 0.85) 0%,
+      rgba(30, 58, 138, 0.75) 50%,
+      rgba(30, 58, 138, 0.85) 100%
+    );
+  }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+  
+  .video-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/hero-drone.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+}

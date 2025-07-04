@@ -1,0 +1,368 @@
+/* /app/static/css/mobile/navigation-mobile.css */
+/* Mobile-First Navigation Enhancement for Adaptive Auto Hub
+   Performance-optimized with smooth animations and touch-friendly targets */
+
+:root {
+  /* Mobile-specific variables */
+  --mobile-header-height: 60px;
+  --mobile-menu-width: 280px;
+  --touch-target-min: 44px;
+  --mobile-padding: 16px;
+  --mobile-animation-duration: 300ms;
+  --mobile-animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile Header Base */
+@media (max-width: 768px) {
+  .header {
+    height: var(--mobile-header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav {
+    height: 100%;
+    padding: 0 var(--mobile-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Logo optimization for mobile */
+  .nav__logo {
+    max-width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav__logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Hide desktop navigation */
+  .nav__menu {
+    display: none;
+  }
+
+  /* Enhanced Mobile Toggle Button */
+  .nav__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav__toggle-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-gray-700);
+    border-radius: 2px;
+    position: absolute;
+    transition: all var(--mobile-animation-duration) var(--mobile-animation-ease);
+  }
+
+  .nav__toggle-line:nth-child(1) {
+    transform: translateY(-8px);
+  }
+
+  .nav__toggle-line:nth-child(2) {
+    transform: translateY(0);
+  }
+
+  .nav__toggle-line:nth-child(3) {
+    transform: translateY(8px);
+  }
+
+  /* Toggle animation */
+  .nav__toggle.is-active .nav__toggle-line:nth-child(1) {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  .nav__toggle.is-active .nav__toggle-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav__toggle.is-active .nav__toggle-line:nth-child(3) {
+    transform: translateY(0) rotate(-45deg);
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--mobile-animation-duration) var(--mobile-animation-ease);
+    z-index: 998;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Mobile Menu Panel */
+  .nav__mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: var(--mobile-menu-width);
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--color-white);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    transition: transform var(--mobile-animation-duration) var(--mobile-animation-ease);
+    z-index: 999;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav__mobile-menu.is-active {
+    transform: translateX(-100%);
+  }
+
+  /* Mobile Menu Header */
+  .mobile-menu__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--mobile-padding);
+    border-bottom: 1px solid var(--color-gray-200);
+    min-height: var(--mobile-header-height);
+  }
+
+  .mobile-menu__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+  }
+
+  .mobile-menu__close {
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu__close:active {
+    background-color: var(--color-gray-100);
+  }
+
+  /* Mobile Menu Navigation */
+  .mobile-menu__nav {
+    padding: var(--mobile-padding) 0;
+  }
+
+  .mobile-menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-menu__item {
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+
+  .mobile-menu__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--mobile-padding);
+    min-height: var(--touch-target-min);
+    color: var(--color-gray-700);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 200ms ease;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu__link:active {
+    background-color: var(--color-gray-50);
+  }
+
+  .mobile-menu__link--active {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+  }
+
+  /* Dropdown support */
+  .mobile-menu__item--has-dropdown .mobile-menu__link::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 200ms ease;
+  }
+
+  .mobile-menu__item--expanded .mobile-menu__link::after {
+    transform: rotate(90deg);
+  }
+
+  .mobile-menu__dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--mobile-animation-duration) ease-in-out;
+    background-color: var(--color-gray-50);
+  }
+
+  .mobile-menu__item--expanded .mobile-menu__dropdown {
+    max-height: 500px;
+  }
+
+  .mobile-menu__dropdown-item {
+    display: block;
+    padding: 12px 16px 12px 32px;
+    color: var(--color-gray-600);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 200ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu__dropdown-item:active {
+    background-color: var(--color-gray-100);
+    color: var(--color-primary);
+  }
+
+  /* Mobile CTA Button */
+  .mobile-menu__cta {
+    padding: var(--mobile-padding);
+    border-top: 1px solid var(--color-gray-200);
+    margin-top: auto;
+  }
+
+  .mobile-menu__cta .btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  /* Safe area support for modern phones */
+  @supports (padding: max(0px)) {
+    .nav {
+      padding-left: max(var(--mobile-padding), env(safe-area-inset-left));
+      padding-right: max(var(--mobile-padding), env(safe-area-inset-right));
+    }
+
+    .nav__mobile-menu {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  /* Landscape orientation adjustments */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .mobile-menu__header {
+      min-height: 50px;
+      padding: 10px var(--mobile-padding);
+    }
+
+    .mobile-menu__link {
+      padding: 12px var(--mobile-padding);
+    }
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(15, 23, 42, 0.98);
+  }
+
+  .nav__toggle-line {
+    background-color: var(--color-gray-200);
+  }
+
+  .nav__mobile-menu {
+    background: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
+
+  .mobile-menu__link,
+  .mobile-menu__dropdown-item {
+    color: var(--color-gray-200);
+  }
+
+  .mobile-menu__item {
+    border-color: var(--color-gray-800);
+  }
+}
+
+/* Touch gesture hints */
+.swipe-hint {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 4px;
+  height: 40px;
+  background: var(--color-gray-300);
+  border-radius: 2px;
+  opacity: 0;
+  animation: swipeHint 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes swipeHint {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(0);
+  }
+  20%, 80% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50%) translateX(10px);
+  }
+}
+
+/* Performance optimizations */
+.nav__mobile-menu,
+.mobile-menu-overlay {
+  will-change: transform, opacity;
+}
+
+/* Disable body scroll when menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}

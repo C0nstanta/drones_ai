@@ -1,9 +1,30 @@
 <!-- /app/templates/main/index.html -->
 {% extends "base.html" %}
 
+{% block extra_head %}
+<!-- Video Hero Specific Styles -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/video-hero.css') }}">
+{% endblock %}
+
 {% block content %}
-<!-- Hero Section -->
-<section class="hero">
+<!-- Hero Section with Video Background -->
+<section class="hero hero-video-bg">
+  <!-- Video Background -->
+  <div class="video-wrapper">
+    <video 
+      class="hero-video"
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      poster="{{ url_for('static', filename='images/hero-drone.jpg') }}"
+    >
+      <source src="{{ url_for('static', filename='video/hero-background.mp4') }}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <!-- Hero Content (Original) -->
   <div class="container">
     <div class="hero__content">
       <h1 class="hero__title">{{ hero.title }}</h1>
@@ -249,6 +270,27 @@
 <script>
 // Add simple scroll animations for better user experience
 document.addEventListener('DOMContentLoaded', function() {
+  // Handle transparent header on scroll
+  const header = document.querySelector('.header');
+  const heroSection = document.querySelector('.hero-video-bg');
+  
+  if (header && heroSection) {
+    // Add transparent-header class for browsers that don't support :has()
+    document.body.classList.add('has-video-hero');
+    
+    // Handle scroll effect
+    function handleScroll() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial scroll position
+  }
+  
   // Animate cards on scroll
   const observerOptions = {
     threshold: 0.1,
@@ -271,6 +313,14 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(card);
   });
+  
+  // Ensure video plays on mobile devices
+  const video = document.querySelector('.hero-video');
+  if (video) {
+    video.play().catch(function(error) {
+      console.log('Video autoplay may be restricted:', error);
+    });
+  }
 });
 </script>
 {% endblock %}

@@ -1,0 +1,276 @@
+<!-- /app/templates/main/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__content">
+      <h1 class="hero__title">{{ hero.title }}</h1>
+      <p class="hero__description">{{ hero.description }}</p>
+      <div class="hero__actions">
+        <a href="{{ url_for('products.index') }}" class="btn btn--primary btn--lg">
+          {{ hero.cta_primary }}
+        </a>
+        <a href="{{ url_for('about.contact') }}" class="btn btn--secondary btn--lg">
+          {{ hero.cta_secondary }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Company Metrics -->
+<section class="section bg-secondary">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Transforming Industries with AI Innovation</h2>
+      <p class="text-secondary">Real impact through E-2 investment and strategic partnerships</p>
+    </div>
+    
+    <div class="grid grid--4">
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-primary); margin-bottom: var(--space-2);">
+            {{ metrics.jobs_created }}
+          </div>
+          <h3>US Jobs Created</h3>
+          <p class="text-secondary mb-0">Through E-2 visa investment program</p>
+        </div>
+      </div>
+      
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-success); margin-bottom: var(--space-2);">
+            {{ metrics.cost_savings }}
+          </div>
+          <h3>Cost Savings</h3>
+          <p class="text-secondary mb-0">Average client operational cost reduction</p>
+        </div>
+      </div>
+      
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-accent); margin-bottom: var(--space-2);">
+            {{ metrics.investment }}
+          </div>
+          <h3>E-2 Investment</h3>
+          <p class="text-secondary mb-0">Capital invested in American innovation</p>
+        </div>
+      </div>
+      
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-warning); margin-bottom: var(--space-2);">
+            {{ metrics.market_growth }}
+          </div>
+          <h3>Market Growth</h3>
+          <p class="text-secondary mb-0">Annual growth rate in drone analytics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Showcase -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Revolutionary AI-Powered Solutions</h2>
+      <p class="text-secondary">Transform your operations with cutting-edge drone analytics and defense systems</p>
+    </div>
+    
+    <div class="grid grid--2">
+      {% for product in products %}
+      <div class="card">
+        <div class="card__image" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-3xl);">
+          {% if product.icon == 'analytics' %}
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"/>
+            <path d="M7 12l3-3 2 2 5-5"/>
+          </svg>
+          {% elif product.icon == 'shield' %}
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          {% endif %}
+        </div>
+        <div class="card__content">
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+            <h3 class="card__title mb-0">{{ product.name }}</h3>
+            <span style="background: var(--color-primary); color: white; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium);">
+              {{ product.tagline }}
+            </span>
+          </div>
+          <p class="card__description">{{ product.description }}</p>
+          
+          <!-- Features List -->
+          <div style="margin-bottom: var(--space-4);">
+            <h4 style="font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); margin-bottom: var(--space-2);">Key Features:</h4>
+            <ul style="display: grid; gap: var(--space-1); list-style: none;">
+              {% for feature in product.features %}
+              <li style="display: flex; align-items: center; gap: var(--space-2); color: var(--color-gray-600); font-size: var(--font-size-sm);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-success); flex-shrink: 0;">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+                {{ feature }}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          
+          <div class="card__footer">
+            <a href="{{ product.link }}" class="btn btn--primary" style="width: 100%;">
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Solutions Overview -->
+<section class="section bg-secondary">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Industry Solutions</h2>
+      <p class="text-secondary">Tailored AI solutions for specific industry challenges</p>
+    </div>
+    
+    <div class="grid grid--3">
+      {% for solution in solutions %}
+      <div class="card">
+        <div class="card__image" style="background: linear-gradient(45deg, var(--color-{{ loop.index % 3 == 1 and 'primary' or loop.index % 3 == 2 and 'accent' or 'success' }}) 0%, var(--color-gray-600) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
+          {{ solution.title.split()[0] }}
+        </div>
+        <div class="card__content">
+          <h3 class="card__title">{{ solution.title }}</h3>
+          <p class="card__description">{{ solution.description }}</p>
+          <div class="card__footer">
+            <a href="{{ url_for('industries.index') }}" class="btn btn--outline" style="width: 100%;">
+              Explore Solutions
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Client Testimonials -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Trusted by Industry Leaders</h2>
+      <p class="text-secondary">Real results from real clients across multiple industries</p>
+    </div>
+    
+    <div class="grid grid--2">
+      {% for testimonial in testimonials %}
+      <div class="card" style="text-align: center;">
+        <div class="card__content">
+          <div style="font-size: var(--font-size-4xl); color: var(--color-primary); margin-bottom: var(--space-4);">
+            "
+          </div>
+          <p style="font-size: var(--font-size-lg); font-style: italic; margin-bottom: var(--space-6); line-height: var(--line-height-relaxed);">
+            {{ testimonial.quote }}
+          </p>
+          <div style="border-top: 1px solid var(--color-gray-200); padding-top: var(--space-4);">
+            <div style="font-weight: var(--font-weight-semibold); color: var(--color-gray-900);">
+              {{ testimonial.client }}
+            </div>
+            <div style="color: var(--color-gray-600); font-size: var(--font-size-sm);">
+              {{ testimonial.industry }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Strategic Partners -->
+<section class="section bg-secondary">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Strategic Partnerships</h2>
+      <p class="text-secondary">Collaborating with industry leaders to deliver exceptional solutions</p>
+    </div>
+    
+    <div class="grid grid--2">
+      {% for partner in partners %}
+      <div class="card text-center">
+        <div class="card__content">
+          <h3 class="card__title">{{ partner.name }}</h3>
+          <p class="text-secondary">{{ partner.type }}</p>
+          <div style="padding: var(--space-4); background: var(--color-gray-100); border-radius: var(--radius-lg); margin-top: var(--space-4);">
+            <div style="width: 80px; height: 80px; background: var(--color-primary); border-radius: var(--radius-full); margin: 0 auto; display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-weight-bold);">
+              {{ partner.name.split()[0][0] }}{{ partner.name.split()[-1][0] }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="text-center" style="margin-top: var(--space-8);">
+      <a href="{{ url_for('partnerships.index') }}" class="btn btn--primary">
+        View All Partnerships
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: white;">
+  <div class="container text-center">
+    <h2 style="color: white; margin-bottom: var(--space-6);">Ready to Transform Your Operations?</h2>
+    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-8); opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Join industry leaders who have already reduced costs by 75-85% while improving safety and efficiency through our AI-powered solutions.
+    </p>
+    <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+      <a href="{{ url_for('about.contact') }}" class="btn btn--primary" style="background: white; color: var(--color-primary);">
+        Schedule Consultation
+      </a>
+      <a href="{{ url_for('products.index') }}" class="btn btn--secondary">
+        Explore Products
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Add simple scroll animations for better user experience
+document.addEventListener('DOMContentLoaded', function() {
+  // Animate cards on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all cards
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+});
+</script>
+{% endblock %}

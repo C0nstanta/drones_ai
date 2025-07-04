@@ -1,0 +1,8 @@
+{
+    "name": "Adaptive Auto Hub",
+    "short_name": "AdaptiveAuto",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#1e3a8a",
+    "background_color": "#f8fafc"
+}

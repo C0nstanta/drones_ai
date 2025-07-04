@@ -1,0 +1,262 @@
+<!-- /app/templates/base_mobile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Prevent zooming on input focus (iOS) -->
+    <meta name="format-detection" content="telephone=no">
+    
+    <title>{% block title %}{{ page_title }} - Adaptive Auto Hub{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ meta_description }}{% endblock %}">
+    
+    <!-- Mobile Web App Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#1e40af">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        /* Critical above-fold styles */
+        :root {
+            --mobile-header-height: 60px;
+            --color-primary: #3b82f6;
+            --color-gray-700: #374151;
+            --color-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: var(--color-gray-700);
+            background: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Prevent FOUC */
+        .no-js .requires-js { display: none; }
+    </style>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="{{ url_for('static', filename='css/mobile/navigation-mobile.css') }}" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='js/mobile/mobile-navigation.js') }}" as="script">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/navigation-mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/utilities-mobile.css') }}">
+    
+    {% block extra_head %}{% endblock %}
+    
+    <!-- Remove no-js class if JavaScript is enabled -->
+    <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+    <!-- Skip to main content (accessibility) -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <!-- Logo -->
+                <a href="/" class="nav__logo" aria-label="Adaptive Auto Hub Home">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" 
+                         alt="Adaptive Auto Hub" 
+                         width="150" 
+                         height="40">
+                </a>
+                
+                <!-- Desktop Navigation (hidden on mobile) -->
+                <ul class="nav__menu mobile-hidden">
+                    <li class="nav__item">
+                        <a href="/" class="nav__link {% if request.endpoint == 'main.index' %}nav__link--active{% endif %}">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/products" class="nav__link {% if 'products' in request.endpoint %}nav__link--active{% endif %}">Products</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/industries" class="nav__link {% if 'industries' in request.endpoint %}nav__link--active{% endif %}">Industries</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/partnerships" class="nav__link {% if 'partnerships' in request.endpoint %}nav__link--active{% endif %}">Partnerships</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/about" class="nav__link {% if 'about' in request.endpoint %}nav__link--active{% endif %}">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/contact" class="nav__link nav__link--cta">Get Started</a>
+                    </li>
+                </ul>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="nav__toggle" 
+                        aria-expanded="false" 
+                        aria-controls="mobile-menu"
+                        aria-label="Toggle navigation menu">
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="nav__mobile-menu" id="mobile-menu" aria-hidden="true">
+        <!-- Menu Header -->
+        <div class="mobile-menu__header">
+            <span class="mobile-menu__title">Menu</span>
+            <button class="mobile-menu__close" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Menu Navigation -->
+        <nav class="mobile-menu__nav">
+            <ul class="mobile-menu__list">
+                <li class="mobile-menu__item">
+                    <a href="/" class="mobile-menu__link {% if request.endpoint == 'main.index' %}mobile-menu__link--active{% endif %}">
+                        Home
+                    </a>
+                </li>
+                
+                <!-- Products with dropdown -->
+                <li class="mobile-menu__item mobile-menu__item--has-dropdown">
+                    <a href="/products" class="mobile-menu__link {% if 'products' in request.endpoint %}mobile-menu__link--active{% endif %}" aria-expanded="false">
+                        Products
+                    </a>
+                    <div class="mobile-menu__dropdown">
+                        <a href="/products/aura-analytics" class="mobile-menu__dropdown-item">Aura Analytics</a>
+                        <a href="/products/aegis-defense" class="mobile-menu__dropdown-item">Aegis Defense</a>
+                    </div>
+                </li>
+                
+                <!-- Industries with dropdown -->
+                <li class="mobile-menu__item mobile-menu__item--has-dropdown">
+                    <a href="/industries" class="mobile-menu__link {% if 'industries' in request.endpoint %}mobile-menu__link--active{% endif %}" aria-expanded="false">
+                        Industries
+                    </a>
+                    <div class="mobile-menu__dropdown">
+                        <a href="/industries/oil-gas" class="mobile-menu__dropdown-item">Oil & Gas</a>
+                        <a href="/industries/infrastructure" class="mobile-menu__dropdown-item">Infrastructure</a>
+                        <a href="/industries/defense" class="mobile-menu__dropdown-item">Defense</a>
+                        <a href="/industries/construction" class="mobile-menu__dropdown-item">Construction</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-menu__item">
+                    <a href="/partnerships" class="mobile-menu__link {% if 'partnerships' in request.endpoint %}mobile-menu__link--active{% endif %}">
+                        Partnerships
+                    </a>
+                </li>
+                
+                <li class="mobile-menu__item">
+                    <a href="/about" class="mobile-menu__link {% if 'about' in request.endpoint %}mobile-menu__link--active{% endif %}">
+                        About
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Mobile CTA -->
+        <div class="mobile-menu__cta">
+            <a href="/contact" class="btn btn--primary">Get Started</a>
+        </div>
+        
+        <!-- Swipe hint -->
+        <div class="swipe-hint" aria-hidden="true"></div>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <!-- Main Content -->
+    <main id="main" role="main" class="site-main">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid mobile-flex-column">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3 class="footer-heading">Adaptive Auto Hub</h3>
+                    <p class="footer-description">
+                        AI-driven drone solutions transforming infrastructure inspection and defense.
+                    </p>
+                    <p class="footer-info">
+                        E-2 Treaty Investor Enterprise<br>
+                        Salt Lake City, Utah, USA
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4 class="footer-subheading">Products</h4>
+                    <ul class="footer-list">
+                        <li><a href="/products/aura-analytics">Aura Analytics</a></li>
+                        <li><a href="/products/aegis-defense">Aegis Defense</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Industries -->
+                <div class="footer-section">
+                    <h4 class="footer-subheading">Industries</h4>
+                    <ul class="footer-list">
+                        <li><a href="/industries/oil-gas">Oil & Gas</a></li>
+                        <li><a href="/industries/infrastructure">Infrastructure</a></li>
+                        <li><a href="/industries/defense">Defense</a></li>
+                        <li><a href="/industries/construction">Construction</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div class="footer-section">
+                    <h4 class="footer-subheading">Connect</h4>
+                    <a href="/contact" class="btn btn--secondary mobile-w-full">Contact Us</a>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 Adaptive Auto Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/mobile/mobile-navigation.js') }}" defer></script>
+    
+    {% block extra_scripts %}{% endblock %}
+    
+    <!-- Performance monitoring (optional) -->
+    <script>
+        // Log performance metrics
+        window.addEventListener('load', function() {
+            if ('performance' in window && 'measure' in window.performance) {
+                window.performance.measure('page-load');
+                const perfData = window.performance.getEntriesByType('navigation')[0];
+                console.log('Page Load Time:', perfData.loadEventEnd - perfData.fetchStart, 'ms');
+            }
+        });
+    </script>
+</body>
+</html>

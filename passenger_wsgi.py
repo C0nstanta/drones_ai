@@ -1,27 +1,29 @@
-# /adaptive-auto-hub/passenger_wsgi.py
-"""
-Namecheap shared hosting entry point for Adaptive Auto Hub Flask application.
-This file is required for Passenger WSGI deployment on shared hosting.
-"""
+# /home/adapmzvd/ai_drones_07.04.2025/passenger_wsgi.py
 
 import sys
 import os
 
-# Add the application directory to Python path
-app_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, app_dir)
+# Add the project directory to the Python path
+project_home = os.path.dirname(os.path.abspath(__file__))
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
 
-# Set production environment
-os.environ.setdefault('FLASK_ENV', 'production')
+# Import your Flask application
+# Assuming your Flask app instance is in run.py or app/__init__.py
+try:
+    # If your Flask app instance is in run.py and named 'app'
+    from run import app as application
+except ImportError:
+    try:
+        # If your Flask app instance is in app/__init__.py
+        from app import app as application
+    except ImportError:
+        # If your Flask app instance is created differently, adjust this import
+        from app import create_app
+        application = create_app()
 
-# Import and create the Flask application
-from app import create_app
-
-# Create application instance for Passenger
-application = create_app('production')
-
-# Optional: Add logging for debugging deployment issues
-if application.debug:
-    import logging
-    logging.basicConfig(level=logging.INFO)
-    application.logger.info('Adaptive Auto Hub application started in production mode')
+# Passenger expects the application to be named 'application'
+# Make sure it's accessible
+if __name__ == "__main__":
+    # This won't run under Passenger, but useful for testing
+    application.run(debug=False)
