@@ -3,212 +3,258 @@
 
 {% block content %}
 <!-- Page Header -->
-<section class="page-header page-header--partnerships">
-    <div class="container">
-        <h1 class="page-header__title">{{ intro.title }}</h1>
-        <p class="page-header__subtitle">{{ intro.description }}</p>
+<section class="hero" style="padding: var(--space-16) 0;">
+  <div class="container">
+    <div class="hero__content">
+      <h1 class="hero__title">{{ intro.title }}</h1>
+      <p class="hero__description">{{ intro.description }}</p>
     </div>
+  </div>
 </section>
 
 <!-- Partnership Benefits -->
 <section class="section">
-    <div class="container">
-        <div class="benefits-intro">
-            <h2 class="text-center mb-4">Why Partnerships Matter</h2>
-            <div class="benefit-cards">
-                {% for benefit in intro.benefits %}
-                <div class="benefit-card benefit-card--partnership">
-                    <i class="icon icon--check-circle">✓</i>
-                    <p>{{ benefit }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Why Partnership Matters</h2>
+      <p class="text-secondary">Strategic alliances that drive innovation and deliver exceptional value</p>
     </div>
+    
+    <div class="grid grid--4">
+      {% for benefit in intro.benefits %}
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-full); margin: 0 auto var(--space-4); display: flex; align-items: center; justify-content: center; color: white;">
+            {% if loop.index == 1 %}
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+            {% elif loop.index == 2 %}
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            </svg>
+            {% elif loop.index == 3 %}
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            {% else %}
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            {% endif %}
+          </div>
+          <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--space-3);">{{ benefit }}</h3>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
-<!-- Strategic Partners -->
-<section class="section bg-light">
-    <div class="container">
-        <div class="partners-showcase">
-            {% for partner_key, partner in partnerships.items() %}
-            <div class="partner-showcase {% if loop.index % 2 == 0 %}partner-showcase--reverse{% endif %}">
-                <div class="partner-showcase__visual">
-                    <div class="partner-showcase__logo-placeholder">
-                        {{ partner.name }}
-                    </div>
-                    <div class="partner-showcase__badges">
-                        <span class="badge">{{ partner.type }}</span>
-                        <span class="badge">Since {{ partner.partnership_since }}</span>
-                    </div>
-                </div>
-                
-                <div class="partner-showcase__content">
-                    <h2 class="partner-showcase__name">{{ partner.name }}</h2>
-                    <p class="partner-showcase__description">{{ partner.description }}</p>
-                    
-                    <div class="partner-showcase__collaboration">
-                        <h3>Partnership Focus: {{ partner.collaboration.focus }}</h3>
-                        <p>{{ partner.collaboration.integration }}</p>
-                    </div>
-                    
-                    <div class="partner-showcase__highlights">
-                        <h4>Key Highlights:</h4>
-                        <ul class="highlights-list">
-                            {% for highlight in partner.highlights[:3] %}
-                            <li>{{ highlight }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    
-                    <a href="/partnerships/{{ partner.id }}" class="btn btn--primary">
-                        Explore {{ partner.name }} Partnership →
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<!-- Partnership Showcase -->
+<section class="section bg-secondary">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Our Strategic Partners</h2>
+      <p class="text-secondary">Collaborating with industry leaders to deliver cutting-edge solutions</p>
     </div>
+    
+    <div class="grid grid--2">
+      {% for partner_id, partner in partnerships.items() %}
+      <div class="card" style="overflow: visible;">
+        <!-- Partner Header -->
+        <div style="padding: var(--space-6); background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%); color: white; text-align: center;">
+          <div style="width: 100px; height: 100px; background: white; border-radius: var(--radius-full); margin: 0 auto var(--space-4); display: flex; align-items: center; justify-content: center; font-weight: var(--font-weight-bold); color: var(--color-primary); font-size: var(--font-size-xl);">
+            {{ partner.name.split()[0][0] }}{{ partner.name.split()[-1][0] }}
+          </div>
+          <h3 style="color: white; margin-bottom: var(--space-2);">{{ partner.name }}</h3>
+          <p style="opacity: 0.9; margin-bottom: 0;">{{ partner.type }}</p>
+        </div>
+        
+        <!-- Partner Content -->
+        <div class="card__content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); font-size: var(--font-size-sm); color: var(--color-gray-600);">
+            <span>📍 {{ partner.location }}</span>
+            <span>🤝 Since {{ partner.partnership_since }}</span>
+          </div>
+          
+          <p style="margin-bottom: var(--space-4);">{{ partner.description }}</p>
+          
+          <!-- Collaboration Focus -->
+          <div style="background: var(--color-gray-50); padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-4);">
+            <h4 style="font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-primary); margin-bottom: var(--space-2);">
+              Partnership Focus
+            </h4>
+            <p style="font-size: var(--font-size-sm); margin-bottom: 0;">{{ partner.collaboration.focus }}</p>
+          </div>
+          
+          <!-- Key Highlights -->
+          <div style="margin-bottom: var(--space-4);">
+            <h4 style="font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-3);">Key Highlights</h4>
+            <ul style="list-style: none; display: grid; gap: var(--space-2);">
+              {% for highlight in partner.highlights[:3] %}
+              <li style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-success); flex-shrink: 0;">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+                {{ highlight }}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          
+          <div class="card__footer">
+            <a href="{{ url_for('partnerships.detail', partner_id=partner_id) }}" class="btn btn--primary" style="width: 100%;">
+              Learn More About {{ partner.name }}
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <!-- Collaboration Model -->
 <section class="section">
-    <div class="container">
-        <div class="section__header text-center">
-            <h2 class="section__title">{{ collaboration_model.title }}</h2>
-        </div>
-        
-        <div class="collaboration-process">
-            {% for step in collaboration_model.steps %}
-            <div class="process-step">
-                <div class="process-step__number">{{ loop.index }}</div>
-                <h3 class="process-step__phase">{{ step.phase }}</h3>
-                <p class="process-step__description">{{ step.description }}</p>
-                {% if not loop.last %}
-                <div class="process-step__arrow">→</div>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>{{ collaboration_model.title }}</h2>
+      <p class="text-secondary">Our proven partnership methodology delivers results</p>
     </div>
-</section>
-
-<!-- Joint Solutions -->
-<section class="section bg-dark text-white">
-    <div class="container">
-        <div class="section__header text-center">
-            <h2 class="section__title">Integrated Solutions</h2>
-            <p class="section__subtitle">
-                Our partnerships enable comprehensive solutions that neither company could deliver alone
-            </p>
+    
+    <div class="grid grid--3">
+      {% for step in collaboration_model.steps %}
+      <div class="card text-center">
+        <div class="card__content">
+          <div style="width: 80px; height: 80px; background: var(--color-accent); border-radius: var(--radius-full); margin: 0 auto var(--space-4); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
+            {{ loop.index }}
+          </div>
+          <h3 style="color: var(--color-primary); margin-bottom: var(--space-3);">{{ step.phase }}</h3>
+          <p class="text-secondary mb-0">{{ step.description }}</p>
         </div>
-        
-        <div class="joint-solutions">
-            <div class="solution-card">
-                <div class="solution-card__partners">
-                    <span>Adaptive Auto Hub + Elphel</span>
-                </div>
-                <h3 class="solution-card__title">Advanced Imaging Analytics</h3>
-                <p class="solution-card__description">
-                    Combining Elphel's cutting-edge cameras with our AI creates the most accurate 
-                    infrastructure inspection system available.
-                </p>
-                <ul class="solution-card__benefits">
-                    <li>Multi-spectral imaging capabilities</li>
-                    <li>98% defect detection accuracy</li>
-                    <li>Open-source integration options</li>
-                </ul>
-            </div>
-            
-            <div class="solution-card">
-                <div class="solution-card__partners">
-                    <span>Adaptive Auto Hub + InterProInvest</span>
-                </div>
-                <h3 class="solution-card__title">Complete Defense Platform</h3>
-                <p class="solution-card__description">
-                    Aegis AI paired with RIFF countermeasures provides end-to-end drone threat 
-                    management from detection to neutralization.
-                </p>
-                <ul class="solution-card__benefits">
-                    <li>360° threat detection and response</li>
-                    <li>Battle-tested in 15+ countries</li>
-                    <li>NATO-certified components</li>
-                </ul>
-            </div>
-        </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
 
 <!-- Partnership Benefits -->
-<section class="section">
-    <div class="container">
-        <div class="partnership-benefits">
-            <div class="benefits-column">
-                <h3>For Our Customers</h3>
-                <ul class="benefits-list">
-                    {% for benefit in partnership_benefits.for_customers %}
-                    <li>
-                        <i class="icon icon--check">✓</i>
-                        <span>{{ benefit }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            
-            <div class="benefits-column">
-                <h3>For Our Partners</h3>
-                <ul class="benefits-list">
-                    {% for benefit in partnership_benefits.for_partners %}
-                    <li>
-                        <i class="icon icon--check">✓</i>
-                        <span>{{ benefit }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+<section class="section bg-secondary">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2>Partnership Benefits</h2>
+      <p class="text-secondary">How our partnerships create value for all stakeholders</p>
     </div>
+    
+    <div class="grid grid--2">
+      <!-- For Customers -->
+      <div class="card">
+        <div class="card__content">
+          <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+            <div style="width: 60px; height: 60px; background: var(--color-success); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <h3 style="color: var(--color-success); margin-bottom: 0;">For Our Customers</h3>
+          </div>
+          
+          <ul style="list-style: none; display: grid; gap: var(--space-3);">
+            {% for benefit in partnership_benefits.for_customers %}
+            <li style="display: flex; align-items: center; gap: var(--space-2);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-success); flex-shrink: 0;">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              {{ benefit }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      
+      <!-- For Partners -->
+      <div class="card">
+        <div class="card__content">
+          <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+            <div style="width: 60px; height: 60px; background: var(--color-primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 style="color: var(--color-primary); margin-bottom: 0;">For Our Partners</h3>
+          </div>
+          
+          <ul style="list-style: none; display: grid; gap: var(--space-3);">
+            {% for benefit in partnership_benefits.for_partners %}
+            <li style="display: flex; align-items: center; gap: var(--space-2);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-primary); flex-shrink: 0;">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              {{ benefit }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CTA Section -->
-<section class="cta-section cta-section--gradient">
-    <div class="container">
-        <div class="cta-section__content">
-            <h2 class="cta-section__title">{{ cta.title }}</h2>
-            <p class="cta-section__description">{{ cta.description }}</p>
-            <a href="/contact/?interest=partnership" class="btn btn--white btn--large">
-                {{ cta.button_text }}
-            </a>
-        </div>
+<!-- Call to Action -->
+<section class="section" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: white;">
+  <div class="container text-center">
+    <h2 style="color: white; margin-bottom: var(--space-4);">{{ cta.title }}</h2>
+    <p style="font-size: var(--font-size-lg); margin-bottom: var(--space-8); opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto;">
+      {{ cta.description }}
+    </p>
+    <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+      <a href="{{ url_for('about.contact') }}" class="btn btn--primary" style="background: white; color: var(--color-primary);">
+        {{ cta.button_text }}
+      </a>
+      <a href="{{ url_for('products.index') }}" class="btn btn--secondary">
+        View Our Solutions
+      </a>
     </div>
+  </div>
 </section>
 {% endblock %}
 
-{% block schema %}
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Strategic Partnerships",
-    "description": "{{ intro.description }}",
-    "url": "https://adaptiveautohub.com/partnerships",
-    "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-            {
-                "@type": "Organization",
-                "position": 1,
-                "name": "Elphel Inc.",
-                "description": "Technology partner for advanced imaging solutions"
-            },
-            {
-                "@type": "Organization", 
-                "position": 2,
-                "name": "InterProInvest",
-                "description": "Defense systems partner with RIFF counter-drone platform"
-            }
-        ]
-    }
-}
+{% block scripts %}
+<script>
+// Add scroll animations for partnership cards
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.card');
+  
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, index * 100);
+      }
+    });
+  }, observerOptions);
+  
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+});
 </script>
 {% endblock %}

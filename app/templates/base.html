@@ -1,22 +1,54 @@
-<!-- app/templates/base.html -->
+<!-- /app/templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Page Title -->
   <title>{% block title %}{{ page_title|default('AI-Driven Drone Solutions') }} | Adaptive Auto Hub{% endblock %}</title>
-  <meta name="description" content="{{ meta_description|default('Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection.') }}" />
   
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Meta Tags -->
+  <meta name="description" content="{{ meta_description|default('Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection.') }}">
+  <meta name="keywords" content="{{ meta_keywords|default('drone analytics, AI inspection, counter-drone, infrastructure monitoring') }}">
+  <meta name="author" content="Adaptive Auto Hub">
+  <meta name="robots" content="index, follow">
   
-  <!-- Additional CSS files if they exist -->
-  <!-- You can uncomment these when the files are created -->
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/components/product-showcase.css') }}"> -->
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/components/filter-sidebar.css') }}"> -->
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="{{ page_title|default('Adaptive Auto Hub') }}">
+  <meta property="og:description" content="{{ meta_description|default('AI-driven drone solutions for infrastructure and defense') }}">
+  <meta property="og:type" content="{{ og_type|default('website') }}">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta property="og:image" content="{{ og_image|default(url_for('static', filename='images/og-default.jpg', _external=True)) }}">
+  <meta property="og:site_name" content="Adaptive Auto Hub">
+  <meta property="og:locale" content="en_US">
   
-  <!-- Favicon -->
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title|default('Adaptive Auto Hub') }}">
+  <meta name="twitter:description" content="{{ meta_description|default('AI-driven drone solutions') }}">
+  <meta name="twitter:image" content="{{ og_image|default(url_for('static', filename='images/og-default.jpg', _external=True)) }}">
+  
+  <!-- Canonical URL -->
+  {% if canonical_url %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% endif %}
+  
+  <!-- Favicon and Icons -->
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#1e40af">
+  
+  <!-- DNS Prefetch for Performance -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   
   {% block extra_head %}{% endblock %}
 </head>
@@ -30,24 +62,84 @@
       <nav class="nav" role="navigation" aria-label="Main navigation">
         <!-- Logo -->
         <a href="{{ url_for('main.index') }}" class="nav__logo" aria-label="Adaptive Auto Hub Home">
-          Adaptive Auto Hub
+          <span>Adaptive Auto Hub</span>
         </a>
         
         <!-- Mobile Menu Toggle -->
-        <button class="nav__toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <button 
+          class="nav__toggle" 
+          id="nav-toggle"
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
           <span class="nav__toggle-line"></span>
           <span class="nav__toggle-line"></span>
           <span class="nav__toggle-line"></span>
         </button>
         
-        <!-- Nav Menu -->
-        <ul class="nav__menu" id="nav-menu">
-          <li class="nav__item"><a href="{{ url_for('main.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint == 'main.index' else '' }}">Home</a></li>
-          <li class="nav__item"><a href="{{ url_for('products.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'products' in request.endpoint else '' }}">Products</a></li>
-          <li class="nav__item"><a href="{{ url_for('industries.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'industries' in request.endpoint else '' }}">Industries</a></li>
-          <li class="nav__item"><a href="{{ url_for('partnerships.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'partnerships' in request.endpoint else '' }}">Partnerships</a></li>
-          <li class="nav__item"><a href="{{ url_for('about.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint == 'about.index' else '' }}">About</a></li>
-          <li class="nav__item"><a href="{{ url_for('about.contact') }}" class="nav__link nav__link--cta {{ 'nav__link--active' if request.endpoint == 'about.contact' else '' }}">Contact</a></li>
+        <!-- Navigation Menu -->
+        <ul class="nav__menu" id="nav-menu" role="menubar">
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('main.index') }}" 
+              class="nav__link {{ 'nav__link--active' if request.endpoint == 'main.index' else '' }}"
+              role="menuitem"
+              {% if request.endpoint == 'main.index' %}aria-current="page"{% endif %}
+            >
+              Home
+            </a>
+          </li>
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('products.index') }}" 
+              class="nav__link {{ 'nav__link--active' if request.endpoint and 'products' in request.endpoint else '' }}"
+              role="menuitem"
+              {% if request.endpoint and 'products' in request.endpoint %}aria-current="page"{% endif %}
+            >
+              Products
+            </a>
+          </li>
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('industries.index') }}" 
+              class="nav__link {{ 'nav__link--active' if request.endpoint and 'industries' in request.endpoint else '' }}"
+              role="menuitem"
+              {% if request.endpoint and 'industries' in request.endpoint %}aria-current="page"{% endif %}
+            >
+              Industries
+            </a>
+          </li>
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('partnerships.index') }}" 
+              class="nav__link {{ 'nav__link--active' if request.endpoint and 'partnerships' in request.endpoint else '' }}"
+              role="menuitem"
+              {% if request.endpoint and 'partnerships' in request.endpoint %}aria-current="page"{% endif %}
+            >
+              Partnerships
+            </a>
+          </li>
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('about.index') }}" 
+              class="nav__link {{ 'nav__link--active' if request.endpoint == 'about.index' else '' }}"
+              role="menuitem"
+              {% if request.endpoint == 'about.index' %}aria-current="page"{% endif %}
+            >
+              About
+            </a>
+          </li>
+          <li class="nav__item" role="none">
+            <a 
+              href="{{ url_for('about.contact') }}" 
+              class="nav__link nav__link--cta {{ 'nav__link--active' if request.endpoint == 'about.contact' else '' }}"
+              role="menuitem"
+              {% if request.endpoint == 'about.contact' %}aria-current="page"{% endif %}
+            >
+              Contact
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -65,76 +157,62 @@
         <!-- Company Info -->
         <div class="footer__section">
           <h3>Adaptive Auto Hub</h3>
-          <p>AI-driven drone solutions for infrastructure inspection and defense.<br/>
-          Creating 7 high-skill US jobs through E-2 investment.</p>
-          <div class="footer__badges">
-            <span class="badge badge--e2">E-2 Investor</span>
-            <span class="badge badge--usa">Made in USA</span>
-          </div>
+          <p>
+            AI-driven drone solutions for infrastructure inspection and defense.<br>
+            Creating 7 US jobs through E-2 investment and revolutionary technology.
+          </p>
+          <p>
+            <strong>Investment:</strong> $120,000 E-2 Visa<br>
+            <strong>Market Impact:</strong> 75-85% cost savings<br>
+            <strong>Growth:</strong> 23% CAGR market expansion
+          </p>
         </div>
         
-        <!-- Products -->
+        <!-- Quick Links -->
         <div class="footer__section">
-          <h4>Products</h4>
+          <h3>Solutions</h3>
           <ul class="footer__links">
             <li><a href="{{ url_for('products.aura') }}">Aura Analytics</a></li>
             <li><a href="{{ url_for('products.aegis') }}">Aegis Defense</a></li>
-          </ul>
-        </div>
-        
-        <!-- Company -->
-        <div class="footer__section">
-          <h4>Company</h4>
-          <ul class="footer__links">
-            <li><a href="{{ url_for('about.index') }}">About Us</a></li>
+            <li><a href="{{ url_for('industries.index') }}">Industries</a></li>
             <li><a href="{{ url_for('partnerships.index') }}">Partnerships</a></li>
-            <li><a href="{{ url_for('about.contact') }}">Contact</a></li>
           </ul>
         </div>
         
         <!-- Industries -->
         <div class="footer__section">
-          <h4>Industries</h4>
+          <h3>Industries</h3>
           <ul class="footer__links">
-            <li><a href="{{ url_for('industries.detail', slug='oil-gas') }}">Oil & Gas</a></li>
-            <li><a href="{{ url_for('industries.detail', slug='infrastructure') }}">Infrastructure</a></li>
-            <li><a href="{{ url_for('industries.detail', slug='defense-security') }}">Defense</a></li>
+            <li><a href="{{ url_for('industries.industry_detail', industry='oil-gas') }}">Oil & Gas</a></li>
+            <li><a href="{{ url_for('industries.industry_detail', industry='infrastructure') }}">Infrastructure</a></li>
+            <li><a href="{{ url_for('industries.industry_detail', industry='defense-security') }}">Defense & Security</a></li>
+            <li><a href="{{ url_for('industries.industry_detail', industry='construction') }}">Construction</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div class="footer__section">
+          <h3>Company</h3>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('about.index') }}">About Us</a></li>
+            <li><a href="{{ url_for('about.contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('main.sitemap') }}">Sitemap</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
           </ul>
         </div>
       </div>
       
+      <!-- Footer Bottom -->
       <div class="footer__bottom">
-        <p>&copy; 2024 Adaptive Auto Hub. All rights reserved. | Salt Lake City, Utah, USA</p>
+        <p>&copy; {{ current_year or 2025 }} Adaptive Auto Hub. All rights reserved.</p>
+        <p>E-2 Investment Program | Creating American Jobs Through Innovation</p>
       </div>
     </div>
   </footer>
 
-  <!-- Basic JavaScript -->
-  <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const toggle = document.querySelector('.nav__toggle');
-      const menu = document.querySelector('.nav__menu');
-      
-      if (toggle && menu) {
-        toggle.addEventListener('click', function() {
-          const isOpen = menu.classList.contains('nav__menu--open');
-          menu.classList.toggle('nav__menu--open');
-          toggle.setAttribute('aria-expanded', !isOpen);
-          toggle.classList.toggle('nav__toggle--active');
-        });
-      }
-    });
-  </script>
-  
-  <!-- Only include JS files that exist -->
-  <!-- Uncomment these as you create the files -->
-  {% if config.DEBUG %}
-  <!-- Development: Show which JS files are missing -->
-  <script>
-    console.log('Note: Additional JS files can be added as they are created');
-  </script>
-  {% endif %}
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   
   {% block scripts %}{% endblock %}
 </body>
