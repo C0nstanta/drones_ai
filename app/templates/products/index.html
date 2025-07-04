@@ -1,0 +1,271 @@
+<!-- /app/templates/products/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-header__title">AI-Driven Drone Solutions</h1>
+        <p class="page-header__subtitle">
+            Two powerful platforms that revolutionize infrastructure inspection and security
+        </p>
+    </div>
+</section>
+
+<!-- Add Filter Sidebar to Products Page -->
+<section class="section">
+    <div class="container">
+        <div class="products-layout">
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar" id="filter-sidebar">
+                <div class="filter-sidebar__header">
+                    <h3>Filter Products</h3>
+                    <button class="filter-clear" id="filter-clear">Clear All</button>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Category</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="category" value="analytics">
+                        <span>Analytics</span>
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="category" value="defense">
+                        <span>Defense</span>
+                    </label>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Industry</h4>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="industry" value="infrastructure">
+                        <span>Infrastructure</span>
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="industry" value="energy">
+                        <span>Energy</span>
+                    </label>
+                </div>
+            </aside>
+            
+            <!-- Products Grid -->
+            <div class="products-grid" id="products-grid">
+                <!-- Product cards here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Products Grid -->
+<section class="section">
+    <div class="container">
+        <div class="products-showcase">
+            {% for product in products %}
+            <div class="product-showcase">
+                <div class="product-showcase__image">
+                    <img src="{{ product.image }}" 
+                         alt="{{ product.name }}"
+                         loading="lazy"
+                         width="600"
+                         height="400">
+                    <div class="product-showcase__badge">{{ product.category }}</div>
+                </div>
+                
+                <div class="product-showcase__content">
+                    <h2 class="product-showcase__name">{{ product.name }}</h2>
+                    <p class="product-showcase__summary">{{ product.summary }}</p>
+                    
+                    <div class="product-showcase__highlight">
+                        <span class="text-accent text-large">{{ product.key_benefit }}</span>
+                    </div>
+                    
+                    <div class="product-showcase__markets">
+                        <h3>Target Markets:</h3>
+                        <ul class="tags">
+                            {% for market in product.markets %}
+                            <li class="tag">{{ market }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <div class="product-showcase__actions">
+                        <a href="/products/{{ product.id }}" class="btn btn--primary btn--large">
+                            Explore {{ product.name }} →
+                        </a>
+                        <a href="/contact/?interest={{ product.id }}" class="btn btn--secondary">
+                            Request Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- After the products grid -->
+{% if total_pages > 1 %}
+<div class="pagination-container">
+    <nav class="pagination" aria-label="Page navigation">
+        <!-- Previous -->
+        {% if page > 1 %}
+        <a href="{{ url_for('products.index', page=page-1) }}" class="pagination__nav">
+            <span>Previous</span>
+        </a>
+        {% else %}
+        <span class="pagination__nav disabled" aria-disabled="true">Previous</span>
+        {% endif %}
+        
+        <!-- Page Numbers -->
+        <div class="pagination__pages">
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == page %}
+                    <span class="pagination__page pagination__page--active" aria-current="page">{{ p }}</span>
+                {% else %}
+                    <a href="{{ url_for('products.index', page=p) }}" class="pagination__page">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        <!-- Next -->
+        {% if page < total_pages %}
+        <a href="{{ url_for('products.index', page=page+1) }}" class="pagination__nav">
+            <span>Next</span>
+        </a>
+        {% else %}
+        <span class="pagination__nav disabled" aria-disabled="true">Next</span>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}
+
+<!-- Product Comparison -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Compare Our Solutions</h2>
+            <p class="section__subtitle">
+                Choose the right platform for your specific needs
+            </p>
+        </div>
+        
+        <div class="comparison-table">
+            <table class="table table--striped">
+                <thead>
+                    <tr>
+                        {% for header in comparison.headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in comparison.rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="text-center mt-4">
+            <p class="text-muted">Both platforms can be deployed independently or integrated for comprehensive solutions</p>
+        </div>
+    </div>
+</section>
+
+<!-- Integration Benefits -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Better Together</h2>
+            <p class="section__subtitle">
+                Combine Aura and Aegis for complete infrastructure intelligence and protection
+            </p>
+        </div>
+        
+        <div class="integration-benefits">
+            <div class="benefit-card">
+                <div class="benefit-card__icon">
+                    <i class="icon icon--sync"></i>
+                </div>
+                <h3 class="benefit-card__title">Unified Platform</h3>
+                <p class="benefit-card__description">
+                    Single dashboard for monitoring and security across all assets
+                </p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-card__icon">
+                    <i class="icon icon--shield-check"></i>
+                </div>
+                <h3 class="benefit-card__title">Proactive Protection</h3>
+                <p class="benefit-card__description">
+                    Detect infrastructure issues while defending against threats
+                </p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-card__icon">
+                    <i class="icon icon--chart-up"></i>
+                </div>
+                <h3 class="benefit-card__title">Maximized ROI</h3>
+                <p class="benefit-card__description">
+                    Shared infrastructure and data insights multiply value
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section cta-section--gradient">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">See Our Solutions in Action</h2>
+            <p class="cta-section__description">
+                Schedule a personalized demo to discover how our AI-powered platforms can transform your operations
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/?interest=demo" class="btn btn--white btn--large">
+                    Schedule Your Demo
+                </a>
+                <a href="/industries/" class="btn btn--outline-white btn--large">
+                    Explore Use Cases
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Adaptive Auto Hub Products",
+    "description": "AI-driven drone solutions for infrastructure and defense",
+    "numberOfItems": 2,
+    "itemListElement": [
+        {
+            "@type": "Product",
+            "position": 1,
+            "name": "Aura Analytics",
+            "description": "AI-powered drone analytics for infrastructure inspection",
+            "url": "https://adaptiveautohub.com/products/aura"
+        },
+        {
+            "@type": "Product",
+            "position": 2,
+            "name": "Aegis Defense",
+            "description": "AI-powered counter-drone defense system",
+            "url": "https://adaptiveautohub.com/products/aegis"
+        }
+    ]
+}
+</script>
+{% endblock %}

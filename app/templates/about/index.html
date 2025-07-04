@@ -1,0 +1,290 @@
+<!-- /app/templates/about/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header page-header--about">
+    <div class="container">
+        <h1 class="page-header__title">About Adaptive Auto Hub</h1>
+        <p class="page-header__subtitle">
+            Revolutionizing infrastructure inspection and security through AI-powered drone solutions
+        </p>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="section">
+    <div class="container">
+        <div class="mission-vision">
+            <div class="mission-vision__item">
+                <h2 class="mission-vision__title">Our Mission</h2>
+                <p class="mission-vision__text">{{ company.mission }}</p>
+            </div>
+            
+            <div class="mission-vision__item">
+                <h2 class="mission-vision__title">Our Vision</h2>
+                <p class="mission-vision__text">{{ company.vision }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Stats -->
+<section class="section bg-primary text-white">
+    <div class="container">
+        <div class="company-stats">
+            <div class="stat-item">
+                <div class="stat-item__value">{{ stats.investment }}</div>
+                <div class="stat-item__label">E-2 Investment</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item__value">{{ stats.jobs }}</div>
+                <div class="stat-item__label">US Jobs Creating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item__value">{{ stats.partnerships }}</div>
+                <div class="stat-item__label">Strategic Partners</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item__value">{{ stats.market_size }}</div>
+                <div class="stat-item__label">Total Market Size</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Founder Story -->
+<section class="section">
+    <div class="container">
+        <div class="founder-section">
+            <div class="founder-section__content">
+                <h2 class="founder-section__title">Leadership & Vision</h2>
+                <h3 class="founder-section__name">{{ company.founder.name }}</h3>
+                <p class="founder-section__role">{{ company.founder.title }}</p>
+                
+                <p class="founder-section__bio">{{ company.founder.bio }}</p>
+                
+                <div class="founder-section__highlight">
+                    <i class="icon icon--dollar-circle">💲</i>
+                    <span>{{ company.founder.investment }} committed to building the future of drone analytics</span>
+                </div>
+                
+                <div class="founder-section__experience">
+                    <h4>Experience & Expertise:</h4>
+                    <ul>
+                        {% for item in company.founder.experience %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="founder-section__visual">
+                <div class="founder-image-placeholder">
+                    <i class="icon icon--user-circle">👤</i>
+                    <p>E-2 Treaty Investor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Our Core Values</h2>
+            <p class="section__subtitle">
+                The principles that guide everything we do
+            </p>
+        </div>
+        
+        <div class="values-grid">
+            {% for value in company.core_values %}
+            <div class="value-card">
+                <div class="value-card__icon">
+                    <i class="icon icon--{{ value.icon }}">
+                        {% if value.icon == 'lightbulb' %}💡
+                        {% elif value.icon == 'shield' %}🛡️
+                        {% elif value.icon == 'handshake' %}🤝
+                        {% elif value.icon == 'chart' %}📊
+                        {% endif %}
+                    </i>
+                </div>
+                <h3 class="value-card__title">{{ value.title }}</h3>
+                <p class="value-card__description">{{ value.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Company Timeline -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Our Journey</h2>
+            <p class="section__subtitle">
+                Building the future of infrastructure intelligence
+            </p>
+        </div>
+        
+        <div class="timeline">
+            {% for milestone in company.milestones %}
+            <div class="timeline-item {% if loop.index % 2 == 0 %}timeline-item--right{% endif %}">
+                <div class="timeline-item__marker"></div>
+                <div class="timeline-item__content">
+                    <div class="timeline-item__date">{{ milestone.date }}</div>
+                    <h3 class="timeline-item__title">{{ milestone.title }}</h3>
+                    <p class="timeline-item__description">{{ milestone.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Team Growth -->
+<section class="section bg-gradient">
+    <div class="container">
+        <div class="team-growth">
+            <div class="section__header text-center text-white">
+                <h2 class="section__title">Creating American Jobs</h2>
+                <p class="section__subtitle">
+                    Our E-2 investment is creating high-skill positions in Utah's tech sector
+                </p>
+            </div>
+            
+            <div class="growth-visualization">
+                <div class="growth-bar">
+                    <div class="growth-bar__item" style="height: 20%">
+                        <span class="growth-bar__value">{{ company.team_growth.current }}</span>
+                        <span class="growth-bar__label">Current</span>
+                    </div>
+                    <div class="growth-bar__item" style="height: 40%">
+                        <span class="growth-bar__value">{{ company.team_growth.year_1 }}</span>
+                        <span class="growth-bar__label">Year 1</span>
+                    </div>
+                    <div class="growth-bar__item" style="height: 70%">
+                        <span class="growth-bar__value">{{ company.team_growth.year_2 }}</span>
+                        <span class="growth-bar__label">Year 2</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="positions-list">
+                <h3 class="text-center text-white mb-3">Positions We're Creating:</h3>
+                <div class="positions-grid">
+                    {% for position in company.team_growth.positions %}
+                    <div class="position-item">
+                        <i class="icon icon--check-circle">✓</i>
+                        <span>{{ position }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Info -->
+<section class="section">
+    <div class="container">
+        <div class="company-info">
+            <div class="info-card">
+                <h3>Company Details</h3>
+                <dl class="info-list">
+                    <dt>Founded:</dt>
+                    <dd>{{ company.company.founded }}</dd>
+                    
+                    <dt>Headquarters:</dt>
+                    <dd>{{ company.company.headquarters }}</dd>
+                    
+                    <dt>Business Type:</dt>
+                    <dd>E-2 Treaty Investor Enterprise</dd>
+                    
+                    <dt>Investment:</dt>
+                    <dd>{{ company.company.investment }}</dd>
+                    
+                    <dt>Projected Revenue:</dt>
+                    <dd>{{ company.company.revenue_projection }}</dd>
+                </dl>
+            </div>
+            
+            <div class="info-card">
+                <h3>Market Focus</h3>
+                <ul class="market-list">
+                    {% for market in company.company.markets %}
+                    <li>
+                        <i class="icon icon--industry">🏭</i>
+                        <span>{{ market }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="market-stats">
+                    <p><strong>Total Addressable Market:</strong> $9.2B by 2029</p>
+                    <p><strong>Average Growth Rate:</strong> 23% CAGR</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Join Us in Building the Future</h2>
+            <p class="cta-section__description">
+                Whether you're looking for cutting-edge solutions, partnership opportunities, 
+                or want to join our growing team, we'd love to hear from you.
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/" class="btn btn--primary btn--large">
+                    Get in Touch
+                </a>
+                <a href="/products/" class="btn btn--secondary btn--large">
+                    Explore Our Solutions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Adaptive Auto Hub",
+    "description": "{{ company.mission }}",
+    "url": "https://adaptiveautohub.com/about",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "Adaptive Auto Hub",
+        "description": "AI-driven drone solutions for infrastructure and defense",
+        "foundingDate": "{{ company.company.founded }}",
+        "founder": {
+            "@type": "Person",
+            "name": "{{ company.founder.name }}",
+            "jobTitle": "{{ company.founder.title }}"
+        },
+        "location": {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Salt Lake City",
+                "addressRegion": "UT",
+                "addressCountry": "US"
+            }
+        },
+        "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": {{ company.company.employees }}
+        }
+    }
+}
+</script>
+{% endblock %}

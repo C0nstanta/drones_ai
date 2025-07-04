@@ -1,0 +1,69 @@
+<!-- /app/templates/components/mobile-menu.html -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+        <ul class="mobile-nav" role="menu">
+            <li role="none">
+                <a href="{{ url_for('main.index') }}" 
+                   class="mobile-nav-link {% if request.endpoint == 'main.index' %}mobile-nav-link--active{% endif %}"
+                   role="menuitem">Home</a>
+            </li>
+            
+            <!-- Products section -->
+            <li class="mobile-nav-section" role="none">
+                <button class="mobile-nav-toggle" aria-expanded="false">
+                    Products
+                    <svg class="mobile-nav-arrow" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                </button>
+                <ul class="mobile-nav-submenu" role="menu">
+                    <li role="none">
+                        <a href="{{ url_for('products.index') }}" 
+                           class="mobile-nav-link mobile-nav-link--sub"
+                           role="menuitem">All Products</a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('products.aura') }}" 
+                           class="mobile-nav-link mobile-nav-link--sub"
+                           role="menuitem">Aura Analytics</a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('products.aegis') }}" 
+                           class="mobile-nav-link mobile-nav-link--sub"
+                           role="menuitem">Aegis Defense</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li role="none">
+                <a href="{{ url_for('industries.index') }}" 
+                   class="mobile-nav-link {% if 'industries' in request.endpoint %}mobile-nav-link--active{% endif %}"
+                   role="menuitem">Industries</a>
+            </li>
+            
+            <li role="none">
+                <a href="{{ url_for('partnerships.index') }}" 
+                   class="mobile-nav-link {% if 'partnerships' in request.endpoint %}mobile-nav-link--active{% endif %}"
+                   role="menuitem">Partnerships</a>
+            </li>
+            
+            <li role="none">
+                <a href="{{ url_for('about.index') }}" 
+                   class="mobile-nav-link {% if 'about' in request.endpoint %}mobile-nav-link--active{% endif %}"
+                   role="menuitem">About Us</a>
+            </li>
+            
+            <li role="none">
+                <a href="{{ url_for('about.contact') }}" 
+                   class="mobile-nav-link mobile-nav-link--cta"
+                   role="menuitem">Contact</a>
+            </li>
+        </ul>
+        
+        <!-- Trust signals in mobile menu -->
+        <div class="mobile-menu-footer">
+            <p class="mobile-menu-tagline">AI-Driven Drone Solutions</p>
+            <p class="mobile-menu-info">Creating 7 U.S. jobs • Salt Lake City, UT</p>
+        </div>
+    </div>
+</div>

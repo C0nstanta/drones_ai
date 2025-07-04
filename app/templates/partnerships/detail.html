@@ -1,0 +1,280 @@
+<!-- /app/templates/partnerships/detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs__list">
+            {% for crumb in breadcrumbs %}
+            <li class="breadcrumbs__item">
+                {% if loop.last %}
+                <span aria-current="page">{{ crumb.name }}</span>
+                {% else %}
+                <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</nav>
+
+<!-- Partner Hero -->
+<section class="partner-hero">
+    <div class="container">
+        <div class="partner-hero__content">
+            <img src="{{ partner.logo }}" 
+                 alt="{{ partner.name }} logo" 
+                 class="partner-hero__logo"
+                 width="400"
+                 height="160">
+            
+            <div class="partner-hero__info">
+                <div class="partner-badges">
+                    <span class="badge badge--type">{{ partner.type }}</span>
+                    <span class="badge badge--location">{{ partner.location }}</span>
+                    <span class="badge badge--year">Partner Since {{ partner.partnership_since }}</span>
+                </div>
+                
+                <h1 class="partner-hero__name">{{ partner.name }} Partnership</h1>
+                <p class="partner-hero__description">{{ partner.description }}</p>
+                
+                {% if partner.website %}
+                <a href="{{ partner.website }}" 
+                   target="_blank" 
+                   rel="noopener" 
+                   class="btn btn--secondary">
+                    Visit {{ partner.name }} Website →
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Overview -->
+<section class="section">
+    <div class="container">
+        <div class="partnership-overview">
+            <div class="overview-content">
+                <h2>Partnership Focus</h2>
+                <h3 class="text-accent">{{ partner.collaboration.focus }}</h3>
+                <p>{{ partner.collaboration.integration }}</p>
+                
+                <div class="collaboration-products">
+                    <h4>Key Technologies:</h4>
+                    <ul class="tech-list">
+                        {% for product in partner.collaboration.products %}
+                        <li>
+                            <i class="icon icon--chevron-right"></i>
+                            {{ product }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            {% if integration_diagram %}
+            <div class="overview-visual">
+                <img src="{{ integration_diagram }}" 
+                     alt="{{ partner.name }} integration architecture"
+                     loading="lazy"
+                     width="600"
+                     height="400">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Partner Highlights -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Why {{ partner.name }}?</h2>
+        </div>
+        
+        <div class="highlights-grid">
+            {% for highlight in partner.highlights %}
+            <div class="highlight-card">
+                <i class="icon icon--star"></i>
+                <p>{{ highlight }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if partner.credentials %}
+        <div class="credentials">
+            <h3 class="text-center mb-4">Credentials & Certifications</h3>
+            <div class="credential-list">
+                {% for credential in partner.credentials %}
+                <div class="credential-item">
+                    <i class="icon icon--certificate"></i>
+                    <span>{{ credential }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Joint Solutions -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Integrated Solutions</h2>
+            <p class="section__subtitle">
+                What we achieve together
+            </p>
+        </div>
+        
+        <div class="joint-solutions-detail">
+            {% for solution in partner.joint_solutions %}
+            <div class="solution-detail">
+                <h3 class="solution-detail__name">{{ solution.name }}</h3>
+                <p class="solution-detail__description">{{ solution.description }}</p>
+                
+                <div class="solution-detail__benefit">
+                    <span class="benefit-label">Key Benefit:</span>
+                    <span class="benefit-value">{{ solution.benefit }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Achievements or Quote -->
+{% if partner.achievements %}
+<section class="section bg-gradient text-white">
+    <div class="container">
+        <div class="achievements-section">
+            <h2 class="text-center mb-4">Partnership Achievements</h2>
+            <div class="achievements-grid">
+                {% for achievement in partner.achievements %}
+                <div class="achievement-card">
+                    <i class="icon icon--trophy"></i>
+                    <p>{{ achievement }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if partner.quote %}
+<section class="section">
+    <div class="container">
+        <div class="partner-quote">
+            <blockquote class="partner-quote__text">
+                "{{ partner.quote.text }}"
+            </blockquote>
+            <cite class="partner-quote__author">
+                <strong>{{ partner.quote.author }}</strong>
+                <span>{{ partner.quote.title }}</span>
+            </cite>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Products Using This Partnership -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Products Enhanced by This Partnership</h2>
+        </div>
+        
+        <div class="enhanced-products">
+            {% if partner.id == 'elphel' %}
+            <div class="product-enhancement">
+                <div class="product-enhancement__icon">
+                    <img src="/static/images/products/aura-icon.svg" alt="Aura Analytics" width="80" height="80">
+                </div>
+                <h3>Aura Analytics</h3>
+                <p>Enhanced with Elphel's advanced imaging technology for superior defect detection and analysis</p>
+                <a href="/products/aura" class="btn btn--primary">
+                    Explore Aura →
+                </a>
+            </div>
+            {% endif %}
+            
+            {% if partner.id == 'interproinvest' %}
+            <div class="product-enhancement">
+                <div class="product-enhancement__icon">
+                    <img src="/static/images/products/aegis-icon.svg" alt="Aegis Defense" width="80" height="80">
+                </div>
+                <h3>Aegis Defense</h3>
+                <p>Integrated with RIFF counter-drone platform for complete threat detection and mitigation</p>
+                <a href="/products/aegis" class="btn btn--primary">
+                    Explore Aegis →
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Other Partner -->
+<section class="section">
+    <div class="container">
+        <div class="other-partner">
+            <h2 class="text-center mb-4">Our Other Strategic Partner</h2>
+            <div class="partner-preview">
+                <img src="{{ other_partner.logo }}" 
+                     alt="{{ other_partner.name }}"
+                     class="partner-preview__logo"
+                     width="200"
+                     height="80">
+                <h3>{{ other_partner.name }}</h3>
+                <p>{{ other_partner.description }}</p>
+                <a href="/partnerships/{{ other_partner.id }}" class="btn btn--secondary">
+                    Learn About {{ other_partner.name }} →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Experience the Power of Partnership</h2>
+            <p class="cta-section__description">
+                See how our integrated solutions can transform your operations
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/" class="btn btn--primary btn--large">
+                    Contact Us
+                </a>
+                <a href="/products/" class="btn btn--secondary btn--large">
+                    View Our Solutions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ partner.name }}",
+    "description": "{{ partner.description }}",
+    "url": "{{ partner.website }}",
+    "partner": {
+        "@type": "Organization",
+        "name": "Adaptive Auto Hub"
+    },
+    "location": {
+        "@type": "Place",
+        "name": "{{ partner.location }}"
+    }
+}
+</script>
+{% endblock %}

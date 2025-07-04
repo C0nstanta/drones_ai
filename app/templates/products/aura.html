@@ -1,0 +1,258 @@
+<!-- /app/templates/products/aura.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs__list">
+            {% for crumb in breadcrumbs %}
+            <li class="breadcrumbs__item">
+                {% if loop.last %}
+                <span aria-current="page">{{ crumb.name }}</span>
+                {% else %}
+                <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</nav>
+
+<!-- Product Hero -->
+<section class="product-hero">
+    <div class="container">
+        <div class="product-hero__content">
+            <h1 class="product-hero__name">{{ product.name }}</h1>
+            <p class="product-hero__tagline">{{ product.tagline }}</p>
+            <p class="product-hero__description">{{ product.description }}</p>
+            
+            <div class="product-hero__actions">
+                <a href="/contact/?interest=aura" class="btn btn--primary btn--large">
+                    Request Demo
+                </a>
+                <a href="#specifications" class="btn btn--secondary btn--large">
+                    View Specifications
+                </a>
+            </div>
+        </div>
+        
+        <div class="product-hero__visual">
+            <img src="{{ product.hero_image }}" 
+                 alt="{{ product.name }} in action"
+                 class="product-hero__image"
+                 width="800"
+                 height="600"
+                 loading="eager">
+        </div>
+    </div>
+</section>
+
+<!-- Key Features -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Powerful Features</h2>
+            <p class="section__subtitle">
+                Advanced AI capabilities that transform raw drone data into actionable insights
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            {% for feature in product.features %}
+            <div class="feature-card">
+                <div class="feature-card__icon">
+                    <i class="icon icon--{{ feature.icon }}"></i>
+                </div>
+                <h3 class="feature-card__title">{{ feature.title }}</h3>
+                <p class="feature-card__description">{{ feature.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Applications -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Industry Applications</h2>
+            <p class="section__subtitle">
+                Proven results across multiple sectors
+            </p>
+        </div>
+        
+        <div class="applications">
+            {% for app in product.applications %}
+            <div class="application-card">
+                <div class="application-card__header">
+                    <h3 class="application-card__industry">{{ app.industry }}</h3>
+                    <span class="application-card__use-case">{{ app.use_case }}</span>
+                </div>
+                
+                <div class="application-card__benefits">
+                    <h4>Key Benefits:</h4>
+                    <ul>
+                        {% for benefit in app.benefits %}
+                        <li>{{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="application-card__roi">
+                    <span class="text-accent">ROI: {{ app.roi }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Case Study -->
+<section class="section">
+    <div class="container">
+        <div class="case-study">
+            <div class="case-study__header">
+                <h2 class="case-study__title">Success Story</h2>
+                <p class="case-study__client">{{ product.case_study.client }}</p>
+            </div>
+            
+            <div class="case-study__content">
+                <div class="case-study__challenge">
+                    <h3>Challenge</h3>
+                    <p>{{ product.case_study.challenge }}</p>
+                </div>
+                
+                <div class="case-study__solution">
+                    <h3>Solution</h3>
+                    <p>{{ product.case_study.solution }}</p>
+                </div>
+                
+                <div class="case-study__results">
+                    <h3>Results</h3>
+                    <div class="results-grid">
+                        {% for result in product.case_study.results %}
+                        <div class="result-card">
+                            <div class="result-card__metric">{{ result }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Specifications -->
+<section id="specifications" class="section bg-dark text-white">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Technical Specifications</h2>
+        </div>
+        
+        <div class="specifications">
+            <div class="spec-grid">
+                {% for spec, value in product.specifications.items() %}
+                <div class="spec-item">
+                    <dt class="spec-item__label">{{ spec }}</dt>
+                    <dd class="spec-item__value">{{ value }}</dd>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/api/specifications/aura" class="btn btn--outline-white">
+                Download Full Specifications (JSON)
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Integration -->
+<section class="section">
+    <div class="container">
+        <div class="integration">
+            <div class="integration__content">
+                <h2 class="integration__title">Easy Integration</h2>
+                <p class="integration__description">
+                    Aura seamlessly integrates with your existing drone platforms and workflows. 
+                    Our RESTful API and comprehensive SDK make implementation straightforward.
+                </p>
+                
+                <div class="integration__features">
+                    <div class="check-item">
+                        <i class="icon icon--check"></i>
+                        <span>Works with any drone platform</span>
+                    </div>
+                    <div class="check-item">
+                        <i class="icon icon--check"></i>
+                        <span>Cloud, edge, or hybrid deployment</span>
+                    </div>
+                    <div class="check-item">
+                        <i class="icon icon--check"></i>
+                        <span>Real-time data processing</span>
+                    </div>
+                    <div class="check-item">
+                        <i class="icon icon--check"></i>
+                        <span>Comprehensive documentation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="integration__visual">
+                <img src="/static/images/products/aura-integration.png" 
+                     alt="Aura integration diagram"
+                     loading="lazy"
+                     width="600"
+                     height="400">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section cta-section--product">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Ready to Save 75-85% on Inspections?</h2>
+            <p class="cta-section__description">
+                Join industry leaders who are transforming their operations with Aura Analytics
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/?interest=aura" class="btn btn--white btn--large">
+                    Schedule Your Demo
+                </a>
+                <a href="/products/aegis" class="btn btn--outline-white btn--large">
+                    Explore Aegis Defense
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ product.name }}",
+    "description": "{{ product.description }}",
+    "brand": {
+        "@type": "Brand",
+        "name": "Adaptive Auto Hub"
+    },
+    "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2025-12-31"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "15"
+    }
+}
+</script>
+{% endblock %}

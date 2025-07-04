@@ -1,0 +1,141 @@
+<!-- app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ page_title|default('AI-Driven Drone Solutions') }} | Adaptive Auto Hub{% endblock %}</title>
+  <meta name="description" content="{{ meta_description|default('Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection.') }}" />
+  
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <!-- Additional CSS files if they exist -->
+  <!-- You can uncomment these when the files are created -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/components/product-showcase.css') }}"> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/components/filter-sidebar.css') }}"> -->
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Header / Navigation -->
+  <header class="header" role="banner">
+    <div class="container">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <!-- Logo -->
+        <a href="{{ url_for('main.index') }}" class="nav__logo" aria-label="Adaptive Auto Hub Home">
+          Adaptive Auto Hub
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="nav__toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+        
+        <!-- Nav Menu -->
+        <ul class="nav__menu" id="nav-menu">
+          <li class="nav__item"><a href="{{ url_for('main.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint == 'main.index' else '' }}">Home</a></li>
+          <li class="nav__item"><a href="{{ url_for('products.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'products' in request.endpoint else '' }}">Products</a></li>
+          <li class="nav__item"><a href="{{ url_for('industries.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'industries' in request.endpoint else '' }}">Industries</a></li>
+          <li class="nav__item"><a href="{{ url_for('partnerships.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint and 'partnerships' in request.endpoint else '' }}">Partnerships</a></li>
+          <li class="nav__item"><a href="{{ url_for('about.index') }}" class="nav__link {{ 'nav__link--active' if request.endpoint == 'about.index' else '' }}">About</a></li>
+          <li class="nav__item"><a href="{{ url_for('about.contact') }}" class="nav__link nav__link--cta {{ 'nav__link--active' if request.endpoint == 'about.contact' else '' }}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main" role="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__content">
+        <!-- Company Info -->
+        <div class="footer__section">
+          <h3>Adaptive Auto Hub</h3>
+          <p>AI-driven drone solutions for infrastructure inspection and defense.<br/>
+          Creating 7 high-skill US jobs through E-2 investment.</p>
+          <div class="footer__badges">
+            <span class="badge badge--e2">E-2 Investor</span>
+            <span class="badge badge--usa">Made in USA</span>
+          </div>
+        </div>
+        
+        <!-- Products -->
+        <div class="footer__section">
+          <h4>Products</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('products.aura') }}">Aura Analytics</a></li>
+            <li><a href="{{ url_for('products.aegis') }}">Aegis Defense</a></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div class="footer__section">
+          <h4>Company</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('about.index') }}">About Us</a></li>
+            <li><a href="{{ url_for('partnerships.index') }}">Partnerships</a></li>
+            <li><a href="{{ url_for('about.contact') }}">Contact</a></li>
+          </ul>
+        </div>
+        
+        <!-- Industries -->
+        <div class="footer__section">
+          <h4>Industries</h4>
+          <ul class="footer__links">
+            <li><a href="{{ url_for('industries.detail', slug='oil-gas') }}">Oil & Gas</a></li>
+            <li><a href="{{ url_for('industries.detail', slug='infrastructure') }}">Infrastructure</a></li>
+            <li><a href="{{ url_for('industries.detail', slug='defense-security') }}">Defense</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <p>&copy; 2024 Adaptive Auto Hub. All rights reserved. | Salt Lake City, Utah, USA</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Basic JavaScript -->
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('.nav__toggle');
+      const menu = document.querySelector('.nav__menu');
+      
+      if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+          const isOpen = menu.classList.contains('nav__menu--open');
+          menu.classList.toggle('nav__menu--open');
+          toggle.setAttribute('aria-expanded', !isOpen);
+          toggle.classList.toggle('nav__toggle--active');
+        });
+      }
+    });
+  </script>
+  
+  <!-- Only include JS files that exist -->
+  <!-- Uncomment these as you create the files -->
+  {% if config.DEBUG %}
+  <!-- Development: Show which JS files are missing -->
+  <script>
+    console.log('Note: Additional JS files can be added as they are created');
+  </script>
+  {% endif %}
+  
+  {% block scripts %}{% endblock %}
+</body>
+</html>

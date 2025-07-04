@@ -1,0 +1,279 @@
+<!-- /app/templates/products/aegis.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs__list">
+            {% for crumb in breadcrumbs %}
+            <li class="breadcrumbs__item">
+                {% if loop.last %}
+                <span aria-current="page">{{ crumb.name }}</span>
+                {% else %}
+                <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</nav>
+
+<!-- Product Hero -->
+<section class="product-hero product-hero--defense">
+    <div class="container">
+        <div class="product-hero__content">
+            <h1 class="product-hero__name">{{ product.name }}</h1>
+            <p class="product-hero__tagline">{{ product.tagline }}</p>
+            <p class="product-hero__description">{{ product.description }}</p>
+            
+            <div class="product-hero__actions">
+                <a href="/contact/?interest=aegis" class="btn btn--primary btn--large">
+                    Request Security Assessment
+                </a>
+                <a href="#specifications" class="btn btn--secondary btn--large">
+                    Technical Specifications
+                </a>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <span class="badge badge--military">Military Grade</span>
+                <span class="badge badge--certified">RIFF Certified</span>
+                <span class="badge badge--deployed">15+ Countries</span>
+            </div>
+        </div>
+        
+        <div class="product-hero__visual">
+            <img src="{{ product.hero_image }}" 
+                 alt="{{ product.name }} deployment"
+                 class="product-hero__image"
+                 width="800"
+                 height="600"
+                 loading="eager">
+        </div>
+    </div>
+</section>
+
+<!-- Threat Detection Capabilities -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Multi-Layer Defense System</h2>
+            <p class="section__subtitle">
+                360° protection through advanced sensor fusion and AI classification
+            </p>
+        </div>
+        
+        <div class="features-grid features-grid--defense">
+            {% for feature in product.features %}
+            <div class="feature-card feature-card--security">
+                <div class="feature-card__icon">
+                    <i class="icon icon--{{ feature.icon }}"></i>
+                </div>
+                <h3 class="feature-card__title">{{ feature.title }}</h3>
+                <p class="feature-card__description">{{ feature.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Defense Applications -->
+<section class="section bg-dark text-white">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Proven Defense Applications</h2>
+            <p class="section__subtitle">
+                Protecting critical assets across military and civilian sectors
+            </p>
+        </div>
+        
+        <div class="defense-applications">
+            {% for app in product.applications %}
+            <div class="defense-app">
+                <div class="defense-app__header">
+                    <h3 class="defense-app__industry">{{ app.industry }}</h3>
+                    <span class="defense-app__coverage">Coverage: {{ app.coverage }}</span>
+                </div>
+                
+                <div class="defense-app__content">
+                    <h4>{{ app.use_case }}</h4>
+                    <ul class="defense-app__benefits">
+                        {% for benefit in app.benefits %}
+                        <li><i class="icon icon--check"></i> {{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Highlight -->
+<section class="section">
+    <div class="container">
+        <div class="partnership-highlight">
+            <div class="partnership-highlight__content">
+                <h2 class="partnership-highlight__title">Powered by Battle-Tested Technology</h2>
+                <p class="partnership-highlight__partner">
+                    In partnership with <strong>{{ product.partnership.partner }}</strong>
+                </p>
+                
+                <div class="partnership-stats">
+                    <div class="stat-card">
+                        <div class="stat-card__value">{{ product.partnership.experience }}</div>
+                        <div class="stat-card__label">Defense Experience</div>
+                    </div>
+                </div>
+                
+                <p class="partnership-highlight__description">
+                    Integration with {{ product.partnership.technology }} provides comprehensive 
+                    counter-drone capabilities proven in real-world deployments.
+                </p>
+                
+                <div class="achievement-grid">
+                    {% for achievement in product.partnership.achievements %}
+                    <div class="achievement">
+                        <i class="icon icon--star"></i>
+                        <span>{{ achievement }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="partnership-highlight__visual">
+                <img src="/static/images/partners/interproinvest-riff.png" 
+                     alt="RIFF System Integration"
+                     loading="lazy"
+                     width="600"
+                     height="400">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technical Specifications -->
+<section id="specifications" class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Technical Specifications</h2>
+        </div>
+        
+        <div class="specifications specifications--grid">
+            {% for spec, value in product.specifications.items() %}
+            <div class="spec-card">
+                <h3 class="spec-card__label">{{ spec }}</h3>
+                <p class="spec-card__value">{{ value }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/api/specifications/aegis" class="btn btn--secondary">
+                Download Full Technical Documentation
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Security Features -->
+<section class="section">
+    <div class="container">
+        <div class="security-features">
+            <div class="section__header text-center">
+                <h2 class="section__title">Enterprise Security Features</h2>
+            </div>
+            
+            <div class="security-grid">
+                <div class="security-feature">
+                    <i class="icon icon--lock"></i>
+                    <h3>Encrypted Communications</h3>
+                    <p>Military-grade encryption for all data transmission</p>
+                </div>
+                
+                <div class="security-feature">
+                    <i class="icon icon--alert"></i>
+                    <h3>Real-Time Alerts</h3>
+                    <p>Instant notifications to security personnel</p>
+                </div>
+                
+                <div class="security-feature">
+                    <i class="icon icon--database"></i>
+                    <h3>Threat Database</h3>
+                    <p>Continuously updated drone signature library</p>
+                </div>
+                
+                <div class="security-feature">
+                    <i class="icon icon--integration"></i>
+                    <h3>C2 Integration</h3>
+                    <p>Seamless integration with command systems</p>
+                </div>
+                
+                <div class="security-feature">
+                    <i class="icon icon--report"></i>
+                    <h3>Compliance Reporting</h3>
+                    <p>Automated documentation for audits</p>
+                </div>
+                
+                <div class="security-feature">
+                    <i class="icon icon--support"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock technical assistance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section cta-section--defense">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Secure Your Assets Today</h2>
+            <p class="cta-section__description">
+                Join defense organizations worldwide who trust Aegis for critical asset protection
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/?interest=aegis" class="btn btn--white btn--large">
+                    Schedule Security Assessment
+                </a>
+                <a href="/industries/defense-security" class="btn btn--outline-white btn--large">
+                    View Defense Case Studies
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ product.name }}",
+    "description": "{{ product.description }}",
+    "brand": {
+        "@type": "Brand",
+        "name": "Adaptive Auto Hub"
+    },
+    "manufacturer": {
+        "@type": "Organization",
+        "name": "Adaptive Auto Hub"
+    },
+    "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2025-12-31"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "8"
+    },
+    "category": "Defense Technology"
+}
+</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+<!-- /app/templates/components/navigation.html -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav-container">
+        <!-- Logo/Brand -->
+        <a href="{{ url_for('main.index') }}" class="nav-brand" aria-label="Adaptive Auto Hub home">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" 
+                 alt="Adaptive Auto Hub" 
+                 width="200" 
+                 height="48"
+                 class="nav-logo">
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <ul class="nav-menu" role="menubar">
+            <li class="nav-item" role="none">
+                <a href="{{ url_for('main.index') }}" 
+                   class="nav-link {% if request.endpoint == 'main.index' %}nav-link--active{% endif %}"
+                   role="menuitem">Home</a>
+            </li>
+            
+            <!-- Products dropdown -->
+            <li class="nav-item nav-item--dropdown" role="none">
+                <button class="nav-link nav-link--dropdown" 
+                        aria-expanded="false" 
+                        aria-haspopup="true"
+                        role="menuitem">
+                    Products
+                    <svg class="nav-arrow" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                </button>
+                <ul class="nav-dropdown" role="menu">
+                    <li role="none">
+                        <a href="{{ url_for('products.index') }}" 
+                           class="nav-dropdown-link"
+                           role="menuitem">
+                            <strong>All Products</strong>
+                            <span>View our complete solutions</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('products.aura') }}" 
+                           class="nav-dropdown-link"
+                           role="menuitem">
+                            <strong>Aura Analytics</strong>
+                            <span>AI brain for imaging systems</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="{{ url_for('products.aegis') }}" 
+                           class="nav-dropdown-link"
+                           role="menuitem">
+                            <strong>Aegis Defense</strong>
+                            <span>Counter-drone AI module</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li class="nav-item" role="none">
+                <a href="{{ url_for('industries.index') }}" 
+                   class="nav-link {% if 'industries' in request.endpoint %}nav-link--active{% endif %}"
+                   role="menuitem">Industries</a>
+            </li>
+            
+            <li class="nav-item" role="none">
+                <a href="{{ url_for('partnerships.index') }}" 
+                   class="nav-link {% if 'partnerships' in request.endpoint %}nav-link--active{% endif %}"
+                   role="menuitem">Partnerships</a>
+            </li>
+            
+            <li class="nav-item" role="none">
+                <a href="{{ url_for('about.index') }}" 
+                   class="nav-link {% if 'about' in request.endpoint %}nav-link--active{% endif %}"
+                   role="menuitem">About</a>
+            </li>
+            
+            <li class="nav-item" role="none">
+                <a href="{{ url_for('about.contact') }}" 
+                   class="nav-link nav-link--cta {% if request.endpoint == 'about.contact' %}nav-link--active{% endif %}"
+                   role="menuitem">Contact</a>
+            </li>
+        </ul>
+        
+        <!-- Mobile menu button -->
+        <button class="nav-toggle" 
+                type="button" 
+                aria-label="Toggle navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    {% include 'components/mobile-menu.html' %}
+</nav>

@@ -1,0 +1,316 @@
+/* /app/static/css/animations/micro-interactions.css */
+/* Subtle micro-interactions for professional feel */
+
+/* Ripple effect for buttons and links */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  animation: ripple-animation 600ms ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Subtle glow for interactive elements */
+.glow-hover {
+  position: relative;
+  transition: all 300ms ease;
+}
+
+.glow-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  z-index: -1;
+}
+
+.glow-hover:hover::before {
+  opacity: 0.4;
+}
+
+/* Smooth underline animation */
+.underline-animation {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-animation::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 300ms ease-out;
+}
+
+.underline-animation:hover::after {
+  width: 100%;
+}
+
+/* Professional loading states */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: skeleton-wave 1.5s infinite;
+}
+
+@keyframes skeleton-wave {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Focus ring animation */
+.focus-ring {
+  position: relative;
+}
+
+.focus-ring:focus {
+  outline: none;
+}
+
+.focus-ring:focus::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid #3b82f6;
+  border-radius: inherit;
+  animation: focus-pulse 1s ease-out;
+}
+
+@keyframes focus-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Smooth color transitions */
+.color-transition {
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+/* Subtle scale on interaction */
+.scale-interaction {
+  transition: transform 200ms ease-out;
+}
+
+.scale-interaction:hover {
+  transform: scale(1.02);
+}
+
+.scale-interaction:active {
+  transform: scale(0.98);
+}
+
+/* Professional tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(15, 23, 42, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease-out;
+  pointer-events: none;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  border: 4px solid transparent;
+  border-top-color: rgba(15, 23, 42, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease-out;
+}
+
+.tooltip:hover::before,
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Smooth number counter animation */
+.counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter[data-target] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 600ms ease-out;
+}
+
+.counter.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Professional badge animation */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.badge:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Subtle parallax for depth */
+.parallax-subtle {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.parallax-subtle[data-speed="slow"] {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.3px));
+}
+
+.parallax-subtle[data-speed="normal"] {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.5px));
+}
+
+.parallax-subtle[data-speed="fast"] {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.8px));
+}
+
+/* Icon animations */
+.icon-hover {
+  transition: transform 200ms ease-out;
+}
+
+.icon-hover:hover {
+  transform: rotate(5deg) scale(1.1);
+}
+
+/* Professional card hover */
+.card-hover {
+  transition: all 300ms ease-out;
+  transform: translateY(0);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth accordion animation */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease-out, padding 300ms ease-out;
+}
+
+.accordion-content.open {
+  max-height: 500px;
+  padding: 1rem 0;
+}
+
+/* Professional form interactions */
+.form-input {
+  border: 2px solid #e5e7eb;
+  transition: all 200ms ease;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input:hover:not(:focus) {
+  border-color: #d1d5db;
+}
+
+/* Subtle text animations */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 600ms ease-out;
+}
+
+.text-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

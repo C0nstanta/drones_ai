@@ -1,0 +1,112 @@
+<!-- /templates/components/filter-group.html -->
+
+<!-- Reusable Filter Group Component -->
+<!-- Usage: {% include 'components/filter-group.html' with group=filter_data %} -->
+
+<div class="filter-group" data-filter-group="{{ group.type }}">
+  <div class="filter-group__header">
+    <h3 class="filter-group__title">{{ group.title }}</h3>
+    <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  
+  <div class="filter-group__content">
+    {% if group.type == 'range' %}
+      <!-- Range Filter (e.g., Price) -->
+      <div class="filter-range">
+        <div class="filter-range__inputs">
+          <div class="filter-range__input-group">
+            <input type="number" 
+                   class="filter-range__input" 
+                   placeholder="{{ group.min_label|default('Min') }}"
+                   data-{{ group.type }}-min
+                   min="{{ group.min }}"
+                   max="{{ group.max }}"
+                   step="{{ group.step|default(1) }}">
+          </div>
+          <div class="filter-range__input-group">
+            <input type="number" 
+                   class="filter-range__input" 
+                   placeholder="{{ group.max_label|default('Max') }}"
+                   data-{{ group.type }}-max
+                   min="{{ group.min }}"
+                   max="{{ group.max }}"
+                   step="{{ group.step|default(1) }}">
+          </div>
+        </div>
+        {% if group.show_slider %}
+        <div class="filter-range__slider">
+          <div class="filter-range__progress"></div>
+        </div>
+        {% endif %}
+      </div>
+      
+    {% elif group.type == 'color' %}
+      <!-- Color Filter with swatches -->
+      {% for option in group.options %}
+      <label class="filter-option filter-option--color">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="{{ group.type }}"
+               value="{{ option.value }}"
+               name="{{ group.type }}">
+        <span class="filter-option__checkbox" 
+              style="background-color: {{ option.hex }}; border-color: {{ option.hex }}"></span>
+        <span class="filter-option__label">{{ option.label }}</span>
+        {% if option.count %}
+        <span class="filter-option__count">({{ option.count }})</span>
+        {% endif %}
+      </label>
+      {% endfor %}
+      
+    {% elif group.type == 'rating' %}
+      <!-- Rating Filter with stars -->
+      {% for option in group.options %}
+      <label class="filter-option filter-option--rating">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="{{ group.type }}"
+               value="{{ option.value }}"
+               name="{{ group.type }}">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">
+          <span class="filter-option__stars">
+            {% for i in range(option.value|int) %}
+              <svg class="star star--filled" width="16" height="16" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            {% endfor %}
+            {% for i in range(5 - option.value|int) %}
+              <svg class="star" width="16" height="16" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            {% endfor %}
+          </span>
+          {{ option.label }}
+        </span>
+        {% if option.count %}
+        <span class="filter-option__count">({{ option.count }})</span>
+        {% endif %}
+      </label>
+      {% endfor %}
+      
+    {% else %}
+      <!-- Standard Checkbox Filter -->
+      {% for option in group.options %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="{{ group.type }}"
+               value="{{ option.value }}"
+               name="{{ group.type }}">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">{{ option.label }}</span>
+        {% if option.count %}
+        <span class="filter-option__count">({{ option.count }})</span>
+        {% endif %}
+      </label>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,313 @@
+/* app/static/css/components/filter-sidebar.css */
+
+/* =====================================================
+   Filter Sidebar Component
+   Performance-optimized filtering interface
+   ===================================================== */
+
+/* Base Structure */
+.filter-sidebar {
+  --filter-bg: #ffffff;
+  --filter-border: #e5e7eb;
+  --filter-text: #1f2937;
+  --filter-text-secondary: #6b7280;
+  --filter-accent: #3b82f6;
+  --filter-hover: #f3f4f6;
+  --filter-active: #dbeafe;
+  --filter-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  position: relative;
+  background: var(--filter-bg);
+  border: 1px solid var(--filter-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  contain: layout style;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 85%;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter-sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .filter-sidebar__overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .filter-sidebar.is-open + .filter-sidebar__overlay {
+    display: block;
+  }
+}
+
+/* Header Section */
+.filter-sidebar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--filter-border);
+}
+
+.filter-sidebar__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--filter-text);
+  margin: 0;
+}
+
+.filter-sidebar__clear {
+  font-size: 0.875rem;
+  color: var(--filter-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.filter-sidebar__clear:hover {
+  background-color: var(--filter-hover);
+}
+
+.filter-sidebar__clear:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile Close Button */
+.filter-sidebar__close {
+  display: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--filter-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .filter-sidebar__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Filter Groups */
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  user-select: none;
+}
+
+.filter-group__title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--filter-text);
+  margin: 0;
+}
+
+.filter-group__toggle {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.2s;
+}
+
+.filter-group.is-collapsed .filter-group__toggle {
+  transform: rotate(-90deg);
+}
+
+.filter-group__content {
+  max-height: 400px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.filter-group.is-collapsed .filter-group__content {
+  max-height: 0;
+}
+
+/* Filter Options */
+.filter-option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.filter-option:hover {
+  background-color: var(--filter-hover);
+  margin: 0 -0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.filter-option__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filter-option__checkbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--filter-border);
+  border-radius: 3px;
+  margin-right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.filter-option__input:checked + .filter-option__checkbox {
+  background-color: var(--filter-accent);
+  border-color: var(--filter-accent);
+}
+
+.filter-option__input:checked + .filter-option__checkbox::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.filter-option__label {
+  flex: 1;
+  font-size: 0.875rem;
+  color: var(--filter-text);
+}
+
+.filter-option__count {
+  font-size: 0.75rem;
+  color: var(--filter-text-secondary);
+  margin-left: 0.5rem;
+}
+
+/* Price Range Slider */
+.filter-range {
+  padding: 1rem 0;
+}
+
+.filter-range__inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-range__input-group {
+  flex: 1;
+}
+
+.filter-range__input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--filter-border);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+}
+
+.filter-range__input:focus {
+  outline: none;
+  border-color: var(--filter-accent);
+}
+
+.filter-range__slider {
+  position: relative;
+  height: 4px;
+  background: var(--filter-border);
+  border-radius: 2px;
+  margin: 1.5rem 0;
+}
+
+.filter-range__progress {
+  position: absolute;
+  height: 100%;
+  background: var(--filter-accent);
+  border-radius: 2px;
+}
+
+.filter-range__handle {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  background: var(--filter-accent);
+  border: 2px solid white;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  box-shadow: var(--filter-shadow);
+}
+
+.filter-range__handle:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Loading State */
+.filter-sidebar--loading {
+  pointer-events: none;
+}
+
+.filter-sidebar--loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .filter-sidebar {
+    --filter-bg: #1f2937;
+    --filter-border: #374151;
+    --filter-text: #f3f4f6;
+    --filter-text-secondary: #9ca3af;
+    --filter-accent: #3b82f6;
+    --filter-hover: #374151;
+    --filter-active: #1e3a8a;
+  }
+}

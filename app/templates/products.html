@@ -1,0 +1,55 @@
+<!-- File: app/templates/products.html -->
+
+<div class="products-page">
+  <!-- Filter Header with Results Count -->
+  <div class="filter-header">
+    <div class="filter-header__left">
+      <button class="filter-toggle">
+        <svg class="filter-toggle__icon"><!-- icon --></svg>
+        <span>Filters</span>
+      </button>
+      <!-- Pagination info will be inserted here -->
+      <div class="pagination-info"></div>
+    </div>
+    <div class="filter-header__right">
+      <!-- Pagination Mode Selector -->
+      <div class="view-controls">
+        <label>View:</label>
+        <select id="paginationMode" class="view-controls__select">
+          <option value="numbered">Pages</option>
+          <option value="loadmore">Load More</option>
+          <option value="infinite">Infinite Scroll</option>
+        </select>
+      </div>
+      <!-- Items per page selector -->
+      <div class="view-controls">
+        <label>Show:</label>
+        <select id="itemsPerPage" class="view-controls__select">
+          <option value="12">12</option>
+          <option value="24" selected>24</option>
+          <option value="48">48</option>
+          <option value="96">96</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Product Grid Container -->
+  <div class="products-content">
+    <aside class="filter-sidebar">
+      <!-- Filters here -->
+    </aside>
+    
+    <main class="product-showcase">
+      <!-- Product grid with scroll container for infinite scroll -->
+      <div class="product-grid-container">
+        <div class="product-grid" id="productGrid">
+          <!-- Products will be inserted here -->
+        </div>
+      </div>
+      
+      <!-- Pagination container -->
+      <div class="pagination-container"></div>
+    </main>
+  </div>
+</div>

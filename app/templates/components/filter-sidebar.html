@@ -1,0 +1,178 @@
+<!-- /templates/components/filter-sidebar.html -->
+
+<!-- Filter Sidebar Component -->
+<aside class="filter-sidebar" data-filter-sidebar>
+  <!-- Header -->
+  <div class="filter-sidebar__header">
+    <h2 class="filter-sidebar__title">Filters</h2>
+    <button class="filter-sidebar__clear" disabled>
+      Clear All
+    </button>
+    <button class="filter-sidebar__close" aria-label="Close filters">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Category Filter -->
+  <div class="filter-group" data-filter-group="category">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Category</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      {% for category in categories %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="category"
+               value="{{ category.slug }}"
+               name="category">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">{{ category.name }}</span>
+        <span class="filter-option__count">({{ category.count }})</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- Price Range Filter -->
+  <div class="filter-group" data-filter-group="price">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Price Range</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      <div class="filter-range">
+        <div class="filter-range__inputs">
+          <div class="filter-range__input-group">
+            <input type="number" 
+                   class="filter-range__input" 
+                   placeholder="Min"
+                   data-price-min
+                   min="0"
+                   step="10">
+          </div>
+          <div class="filter-range__input-group">
+            <input type="number" 
+                   class="filter-range__input" 
+                   placeholder="Max"
+                   data-price-max
+                   min="0"
+                   step="10">
+          </div>
+        </div>
+        <div class="filter-range__slider">
+          <div class="filter-range__progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Brand Filter -->
+  <div class="filter-group" data-filter-group="brand">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Brand</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      {% for brand in brands %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="brand"
+               value="{{ brand.slug }}"
+               name="brand">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">{{ brand.name }}</span>
+        <span class="filter-option__count">({{ brand.count }})</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- Color Filter -->
+  <div class="filter-group" data-filter-group="color">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Color</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      {% for color in colors %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="color"
+               value="{{ color.value }}"
+               name="color">
+        <span class="filter-option__checkbox" 
+              style="background-color: {{ color.hex }}; border-color: {{ color.hex }}"></span>
+        <span class="filter-option__label">{{ color.name }}</span>
+        <span class="filter-option__count">({{ color.count }})</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- Size Filter -->
+  <div class="filter-group" data-filter-group="size">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Size</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      {% for size in sizes %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="size"
+               value="{{ size.value }}"
+               name="size">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">{{ size.label }}</span>
+        <span class="filter-option__count">({{ size.count }})</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- Rating Filter -->
+  <div class="filter-group" data-filter-group="rating">
+    <div class="filter-group__header">
+      <h3 class="filter-group__title">Customer Rating</h3>
+      <svg class="filter-group__toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filter-group__content">
+      {% for i in range(4, 0, -1) %}
+      <label class="filter-option">
+        <input type="checkbox" 
+               class="filter-option__input" 
+               data-filter-type="rating"
+               value="{{ i }}"
+               name="rating">
+        <span class="filter-option__checkbox"></span>
+        <span class="filter-option__label">
+          {% for star in range(i) %}★{% endfor %}{% for star in range(5-i) %}☆{% endfor %}
+          & Up
+        </span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Overlay -->
+<div class="filter-sidebar__overlay" data-filter-overlay></div>

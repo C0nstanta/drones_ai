@@ -1,0 +1,40 @@
+# /requirements.txt
+# Adaptive Auto Hub Flask Application Dependencies
+# Production requirements for Namecheap shared hosting
+
+# Core Flask framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Security and protection
+Flask-Talisman==1.1.0
+Flask-WTF==1.2.1
+
+# Performance optimization
+Flask-Compress==1.14
+
+# Asset management and optimization
+Flask-Assets==2.1.0
+cssmin==0.2.0
+jsmin==3.0.1
+
+# Image processing for optimization pipeline
+Pillow==10.2.0
+
+# Email functionality (for contact forms)
+Flask-Mail==0.9.1
+
+# Environment configuration
+python-dotenv==1.0.0
+
+# Production server (optional - for testing)
+gunicorn==21.2.0
+
+# Development dependencies (install only in dev)
+# pip install -r requirements-dev.txt
+
+# Note: Namecheap shared hosting typically provides:
+# - Python 3.11+
+# - Standard library modules
+# - Limited memory (2GB) and I/O constraints
+# - No Node.js or npm available

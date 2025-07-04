@@ -1,0 +1,84 @@
+<!-- /app/templates/components/footer.html -->
+<div class="container footer-container">
+    <div class="footer-grid">
+        <!-- Company info -->
+        <div class="footer-section footer-section--company">
+            <h3 class="footer-heading">Adaptive Auto Hub</h3>
+            <p class="footer-tagline">AI-Driven Drone Solutions for Infrastructure & Defense</p>
+            <p class="footer-description">
+                Professional drone analytics and counter-drone systems delivering 
+                75-85% cost savings in infrastructure inspection.
+            </p>
+            <div class="footer-badges">
+                <span class="badge badge--e2">E-2 Visa Business</span>
+                <span class="badge badge--jobs">Creating 7 U.S. Jobs</span>
+            </div>
+        </div>
+        
+        <!-- Products -->
+        <div class="footer-section">
+            <h4 class="footer-subheading">Products</h4>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('products.aura') }}">Aura Analytics</a></li>
+                <li><a href="{{ url_for('products.aegis') }}">Aegis Defense</a></li>
+            </ul>
+        </div>
+        
+        <!-- Industries -->
+        <div class="footer-section">
+            <h4 class="footer-subheading">Industries</h4>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('industries.index') }}#oil-gas">Oil & Gas</a></li>
+                <li><a href="{{ url_for('industries.index') }}#infrastructure">Civil Infrastructure</a></li>
+                <li><a href="{{ url_for('industries.index') }}#defense">Defense & Security</a></li>
+                <li><a href="{{ url_for('industries.index') }}#construction">Construction</a></li>
+            </ul>
+        </div>
+        
+        <!-- Company -->
+        <div class="footer-section">
+            <h4 class="footer-subheading">Company</h4>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('about.index') }}">About Us</a></li>
+                <li><a href="{{ url_for('partnerships.index') }}">Partnerships</a></li>
+                <li><a href="{{ url_for('about.contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        
+        <!-- Partners -->
+        <div class="footer-section footer-section--partners">
+            <h4 class="footer-subheading">Strategic Partners</h4>
+            <div class="footer-partners">
+                <a href="{{ url_for('partnerships.index') }}#elphel" class="footer-partner">
+                    <img src="{{ url_for('static', filename='images/partners/elphel-logo.svg') }}" 
+                         alt="Elphel Inc." 
+                         width="120" 
+                         height="40"
+                         loading="lazy">
+                </a>
+                <a href="{{ url_for('partnerships.index') }}#interproinvest" class="footer-partner">
+                    <img src="{{ url_for('static', filename='images/partners/interproinvest-logo.svg') }}" 
+                         alt="InterProInvest" 
+                         width="120" 
+                         height="40"
+                         loading="lazy">
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <p class="footer-copyright">
+                &copy; {{ current_year }} Adaptive Auto Hub. All rights reserved.
+            </p>
+            <p class="footer-location">
+                <svg class="footer-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 2C5.24 2 3 4.24 3 7c0 3.86 5 7 5 7s5-3.14 5-7c0-2.76-2.24-5-5-5zm0 7c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="currentColor"/>
+                </svg>
+                Salt Lake City, Utah
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<!-- /templates/components/hero.html -->
+
+<!--
+    Hero Section Component
+    High-performance animated hero section
+    Version: 1.0.0
+-->
+
+<section class="hero-section" id="hero">
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    
+    <!-- Gradient Overlay -->
+    <div class="hero-gradient-overlay" aria-hidden="true"></div>
+    
+    <!-- Main Content Container -->
+    <div class="hero-container">
+        <!-- Headlines -->
+        <h1 class="hero-headline animate-text">
+            Defending Tomorrow with AI-Powered Innovation
+        </h1>
+        
+        <p class="hero-subheadline animate-text">
+            Advanced autonomous systems and cutting-edge defense technology 
+            protecting national security through intelligent solutions
+        </p>
+        
+        <!-- Statistics -->
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="hero-counter" 
+                     data-target="99.9" 
+                     data-decimals="1"
+                     data-suffix="%">0%</div>
+                <div class="stat-label">Mission Success Rate</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="hero-counter" 
+                     data-target="50" 
+                     data-prefix="+"
+                     data-suffix="ms">0ms</div>
+                <div class="stat-label">Response Time</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="hero-counter" 
+                     data-target="10000" 
+                     data-prefix="+"
+                     data-suffix="">0</div>
+                <div class="stat-label">Threats Neutralized</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="hero-counter" 
+                     data-target="24" 
+                     data-suffix="/7">0/7</div>
+                <div class="stat-label">Active Monitoring</div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="hero-cta-wrapper">
+            <a href="#products" class="hero-cta hero-cta-primary">
+                Explore Our Solutions
+            </a>
+            <a href="#contact" class="hero-cta hero-cta-secondary">
+                Request Demo
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Hero Section Scripts -->
+<script>
+    // Initialize hero animations when scripts are loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if all required scripts are loaded
+        if (typeof HeroController !== 'undefined') {
+            // Hero controller will auto-initialize
+            console.log('Hero section initialized');
+        } else {
+            console.warn('Hero scripts not fully loaded');
+        }
+    });
+</script>

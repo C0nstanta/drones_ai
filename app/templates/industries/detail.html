@@ -1,0 +1,256 @@
+<!-- /app/templates/industries/detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs__list">
+            {% for crumb in breadcrumbs %}
+            <li class="breadcrumbs__item">
+                {% if loop.last %}
+                <span aria-current="page">{{ crumb.name }}</span>
+                {% else %}
+                <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</nav>
+
+<!-- Industry Hero -->
+<section class="industry-hero" style="background-image: url('{{ industry.hero_image }}')">
+    <div class="industry-hero__overlay">
+        <div class="container">
+            <h1 class="industry-hero__name">{{ industry.name }}</h1>
+            <h2 class="industry-hero__title">{{ industry.title }}</h2>
+            <p class="industry-hero__description">{{ industry.description }}</p>
+            
+            <div class="industry-hero__stats">
+                <div class="stat">
+                    <span class="stat__label">Market Size</span>
+                    <span class="stat__value">{{ industry.market_size }}</span>
+                </div>
+                <div class="stat">
+                    <span class="stat__label">Growth Rate</span>
+                    <span class="stat__value">{{ industry.growth_rate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Industry Challenges -->
+<section class="section">
+    <div class="container">
+        <div class="section__header">
+            <h2 class="section__title">Industry Challenges</h2>
+            <p class="section__subtitle">
+                The critical issues {{ industry.name|lower }} faces today
+            </p>
+        </div>
+        
+        <div class="challenges-grid">
+            {% for challenge in industry.challenges %}
+            <div class="challenge-card">
+                <i class="icon icon--alert-triangle"></i>
+                <p>{{ challenge }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Our Solutions -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header">
+            <h2 class="section__title">Our Solutions</h2>
+            <p class="section__subtitle">
+                How Adaptive Auto Hub transforms {{ industry.name|lower }} operations
+            </p>
+        </div>
+        
+        {% if industry.solutions.aura %}
+        <div class="solution-showcase">
+            <div class="solution-showcase__header">
+                <img src="/static/images/products/aura-icon.svg" alt="Aura Analytics" width="60" height="60">
+                <h3>Aura Analytics for {{ industry.name }}</h3>
+            </div>
+            
+            <div class="solution-showcase__benefits">
+                <h4>Key Benefits:</h4>
+                <ul class="benefits-list">
+                    {% for benefit in industry.solutions.aura.benefits %}
+                    <li>
+                        <i class="icon icon--check-circle"></i>
+                        {{ benefit }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="roi-highlight">
+                    <span class="roi-label">ROI:</span>
+                    <span class="roi-value">{{ industry.solutions.aura.roi }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if industry.solutions.aegis %}
+        <div class="solution-showcase">
+            <div class="solution-showcase__header">
+                <img src="/static/images/products/aegis-icon.svg" alt="Aegis Defense" width="60" height="60">
+                <h3>Aegis Defense for {{ industry.name }}</h3>
+            </div>
+            
+            <div class="solution-showcase__benefits">
+                <h4>Key Benefits:</h4>
+                <ul class="benefits-list">
+                    {% for benefit in industry.solutions.aegis.benefits %}
+                    <li>
+                        <i class="icon icon--check-circle"></i>
+                        {{ benefit }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="coverage-highlight">
+                    <span class="coverage-label">Coverage:</span>
+                    <span class="coverage-value">{{ industry.solutions.aegis.coverage }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Case Study or Success Story -->
+{% if industry.case_study %}
+<section class="section">
+    <div class="container">
+        <div class="case-study case-study--featured">
+            <div class="case-study__header">
+                <span class="case-study__label">Success Story</span>
+                <h2 class="case-study__title">{{ industry.case_study.title }}</h2>
+            </div>
+            
+            <div class="case-study__metrics">
+                {% for metric in industry.case_study.metrics %}
+                <div class="metric-highlight">
+                    <div class="metric-highlight__value">{{ metric }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="case-study__result">
+                <span class="result-label">Result:</span>
+                <span class="result-value">{{ industry.case_study.result }}</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Applications or Use Cases -->
+{% if industry.applications %}
+<section class="section bg-dark text-white">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Applications</h2>
+            <p class="section__subtitle">
+                Specific use cases for {{ industry.name|lower }}
+            </p>
+        </div>
+        
+        <div class="applications-grid">
+            {% for app in industry.applications %}
+            <div class="application-item">
+                <i class="icon icon--target"></i>
+                <h3>{{ app }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Testimonial -->
+{% if industry.testimonial %}
+<section class="section">
+    <div class="container">
+        <div class="testimonial testimonial--featured">
+            <blockquote class="testimonial__quote">
+                "{{ industry.testimonial.quote }}"
+            </blockquote>
+            <cite class="testimonial__author">
+                <strong>{{ industry.testimonial.author }}</strong>
+                <span>{{ industry.testimonial.company }}</span>
+            </cite>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Related Industries -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Explore Other Industries</h2>
+        </div>
+        
+        <div class="related-industries">
+            {% for related in related_industries %}
+            <div class="related-card">
+                <h3 class="related-card__name">{{ related.name }}</h3>
+                <p class="related-card__description">{{ related.title }}</p>
+                <a href="/industries/{{ related.id }}" class="btn btn--secondary">
+                    Learn More →
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section cta-section--industry">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Ready to Transform Your {{ industry.name }} Operations?</h2>
+            <p class="cta-section__description">
+                Let's discuss how our AI-powered solutions can address your specific challenges
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/?interest=general&industry={{ industry.id }}" class="btn btn--primary btn--large">
+                    Schedule Industry Consultation
+                </a>
+                <a href="/products/" class="btn btn--secondary btn--large">
+                    View Our Solutions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ industry.name }} Solutions",
+    "description": "{{ industry.description }}",
+    "provider": {
+        "@type": "Organization",
+        "name": "Adaptive Auto Hub"
+    },
+    "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+    },
+    "serviceType": "AI Drone Solutions for {{ industry.name }}"
+}
+</script>
+{% endblock %}

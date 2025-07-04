@@ -1,0 +1,135 @@
+<!-- /app/templates/about/contact.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header page-header--contact">
+    <div class="container">
+        <h1 class="page-header__title">Get in Touch</h1>
+        <p class="page-header__subtitle">
+            Ready to transform your operations with AI-powered drone solutions? Let's talk.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="section">
+    <div class="container">
+        <div class="contact-layout">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2 class="contact-form__title">Send Us a Message</h2>
+                
+                <form method="POST" action="{{ url_for('about.contact') }}" class="contact-form" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-input" + (" form-input--error" if form.name.errors else ""), 
+                                        placeholder="John Smith") }}
+                            {% if form.name.errors %}
+                            <span class="form-error">{{ form.name.errors[0] }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-input" + (" form-input--error" if form.email.errors else ""), 
+                                         placeholder="john@company.com") }}
+                            {% if form.email.errors %}
+                            <span class="form-error">{{ form.email.errors[0] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form.company.label(class="form-label") }}
+                            {{ form.company(class="form-input", placeholder="Company Name (Optional)") }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.phone.label(class="form-label") }}
+                            {{ form.phone(class="form-input", placeholder="+1 (555) 123-4567 (Optional)") }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.interest.label(class="form-label") }}
+                        {{ form.interest(class="form-select") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.message.label(class="form-label") }}
+                        {{ form.message(class="form-textarea" + (" form-textarea--error" if form.message.errors else ""), 
+                                       rows="6",
+                                       placeholder="Tell us about your project or requirements...") }}
+                        {% if form.message.errors %}
+                        <span class="form-error">{{ form.message.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--large btn--block">
+                        Send Message
+                    </button>
+                </form>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert--{{ category }} mt-4">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h2 class="contact-info__title">Contact Information</h2>
+                
+                <div class="contact-info__section">
+                    <h3>📍 Location</h3>
+                    <p>
+                        {{ contact_info.location.city }}<br>
+                        {{ contact_info.location.country }}
+                    </p>
+                    <a href="{{ contact_info.location.map_url }}" 
+                       target="_blank" 
+                       rel="noopener"
+                       class="link">
+                        View on Map →
+                    </a>
+                </div>
+                
+                <div class="contact-info__section">
+                    <h3>🕐 Business Hours</h3>
+                    <p>{{ contact_info.business_hours }}</p>
+                    <p class="text-muted">{{ contact_info.location.timezone }}</p>
+                </div>
+                
+                <div class="contact-info__section">
+                    <h3>✉️ Response Time</h3>
+                    <p>{{ contact_info.response_time }}</p>
+                    <p class="text-small">{{ contact_info.email_note }}</p>
+                </div>
+                
+                <!-- Inquiry Types -->
+                <div class="inquiry-types">
+                    <h3>How Can We Help?</h3>
+                    <div class="inquiry-grid">
+                        {% for inquiry in inquiry_types %}
+                        <div class="inquiry-type">
+                            <h4>{{ inquiry.type }}</h4>
+                            <p>{{ inquiry.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

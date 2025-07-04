@@ -1,0 +1,212 @@
+<!-- /app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page Title -->
+    <title>{% block title %}{{ page_title|default('AI-Driven Drone Solutions') }} | Adaptive Auto Hub{% endblock %}</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="{{ meta_description|default('Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection.') }}">
+    <meta name="keywords" content="{{ meta_keywords|default('drone analytics, AI inspection, counter-drone, infrastructure monitoring') }}">
+    <meta name="author" content="Adaptive Auto Hub">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{ page_title|default('Adaptive Auto Hub') }}">
+    <meta property="og:description" content="{{ meta_description|default('AI-driven drone solutions for infrastructure and defense') }}">
+    <meta property="og:type" content="{{ og_type|default('website') }}">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.jpg') }}">
+    <meta property="og:site_name" content="Adaptive Auto Hub">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title|default('Adaptive Auto Hub') }}">
+    <meta name="twitter:description" content="{{ meta_description|default('AI-driven drone solutions') }}">
+    <meta name="twitter:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.jpg') }}">
+    
+    <!-- Canonical URL -->
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    
+    <!-- CSS Assets (managed by Flask-Assets) -->
+    {% assets "css_critical" %}
+    <style>{{ ASSET_CONTENT }}</style>
+    {% endassets %}
+    
+    {% assets "css_all" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ ASSET_URL }}"></noscript>
+    {% endassets %}
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <!-- Logo -->
+                <a href="/" class="nav__logo" aria-label="Adaptive Auto Hub Home">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" 
+                         alt="Adaptive Auto Hub" 
+                         width="200" 
+                         height="50"
+                         class="nav__logo-img">
+                </a>
+                
+                <!-- Mobile menu toggle -->
+                <button class="nav__toggle" 
+                        aria-label="Toggle navigation menu" 
+                        aria-expanded="false"
+                        aria-controls="nav-menu">
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
+                
+                <!-- Navigation menu -->
+                <ul class="nav__menu" id="nav-menu">
+                    <li class="nav__item">
+                        <a href="/" class="nav__link {{ 'nav__link--active' if request.endpoint == 'main.index' }}">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav__item nav__item--dropdown">
+                        <a href="/products/" class="nav__link {{ 'nav__link--active' if 'products' in request.endpoint }}">
+                            Products
+                        </a>
+                        <ul class="nav__dropdown">
+                            <li><a href="/products/aura" class="nav__dropdown-link">Aura Analytics</a></li>
+                            <li><a href="/products/aegis" class="nav__dropdown-link">Aegis Defense</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/industries/" class="nav__link {{ 'nav__link--active' if 'industries' in request.endpoint }}">
+                            Industries
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/partnerships/" class="nav__link {{ 'nav__link--active' if 'partnerships' in request.endpoint }}">
+                            Partnerships
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/about/" class="nav__link {{ 'nav__link--active' if request.endpoint == 'about.index' }}">
+                            About
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/contact/" class="nav__link nav__link--cta {{ 'nav__link--active' if request.endpoint == 'about.contact' }}">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <!-- Company Info -->
+                <div class="footer__section footer__section--company">
+                    <h3 class="footer__title">Adaptive Auto Hub</h3>
+                    <p class="footer__description">
+                        AI-driven drone solutions for infrastructure inspection and defense. 
+                        Creating 7 high-skill US jobs through E-2 investment.
+                    </p>
+                    <div class="footer__badges">
+                        <span class="badge badge--e2">E-2 Investor</span>
+                        <span class="badge badge--usa">Made in USA</span>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Products</h4>
+                    <ul class="footer__links">
+                        <li><a href="/products/aura">Aura Analytics</a></li>
+                        <li><a href="/products/aegis">Aegis Defense</a></li>
+                        <li><a href="/api/specifications/aura">API Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Company</h4>
+                    <ul class="footer__links">
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/partnerships/">Partnerships</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/sitemap.xml">Sitemap</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Industries</h4>
+                    <ul class="footer__links">
+                        <li><a href="/industries/oil-gas">Oil & Gas</a></li>
+                        <li><a href="/industries/infrastructure">Infrastructure</a></li>
+                        <li><a href="/industries/defense-security">Defense</a></li>
+                        <li><a href="/industries/construction">Construction</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2024-{{ current_year|default('2025') }} Adaptive Auto Hub. All rights reserved.
+                </p>
+                <p class="footer__location">
+                    <i class="icon icon--location"></i> Salt Lake City, Utah, USA
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Assets (managed by Flask-Assets) -->
+    {% assets "js_all" %}
+    <script src="{{ ASSET_URL }}" defer></script>
+    {% endassets %}
+    
+    <!-- Structured Data -->
+    {% block schema %}{% endblock %}
+    
+    <!-- Additional Scripts -->
+    {% block scripts %}{% endblock %}
+    
+    <!-- Analytics (to be added in production) -->
+    {% if config.ANALYTICS_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.ANALYTICS_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ config.ANALYTICS_ID }}');
+    </script>
+    {% endif %}
+</body>
+</html>

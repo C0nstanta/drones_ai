@@ -1,0 +1,246 @@
+<!-- /app/templates/industries/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header page-header--industries">
+    <div class="container">
+        <h1 class="page-header__title">Industries We Serve</h1>
+        <p class="page-header__subtitle">
+            Transforming operations across critical sectors with AI-powered drone solutions
+        </p>
+        
+        <div class="industry-stats">
+            <div class="stat">
+                <span class="stat__value">{{ stats.total_market }}</span>
+                <span class="stat__label">Total Market Size</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value">{{ stats.average_savings }}</span>
+                <span class="stat__label">Average Cost Savings</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value">{{ stats.growth_rate }}</span>
+                <span class="stat__label">Market Growth Rate</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Industries Grid -->
+<section class="section">
+    <div class="container">
+        <div class="industries-grid">
+            {% for industry in industries %}
+            <div class="industry-card industry-card--{{ industry.id }}">
+                <div class="industry-card__image">
+                    <img src="{{ industry.hero_image }}" 
+                         alt="{{ industry.name }}"
+                         loading="lazy"
+                         width="600"
+                         height="400">
+                    <div class="industry-card__overlay">
+                        <div class="industry-card__stats">
+                            <div class="stat-item">
+                                <span class="stat-item__label">Market Size</span>
+                                <span class="stat-item__value">{{ industry.market_size }}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item__label">Growth Rate</span>
+                                <span class="stat-item__value">{{ industry.growth_rate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="industry-card__content">
+                    <h2 class="industry-card__name">{{ industry.name }}</h2>
+                    <h3 class="industry-card__title">{{ industry.title }}</h3>
+                    <p class="industry-card__description">{{ industry.description }}</p>
+                    
+                    {% if industry.case_study %}
+                    <div class="industry-card__case-study">
+                        <span class="case-study-label">Success Story:</span>
+                        <strong>{{ industry.case_study.title }}</strong>
+                        <span class="text-accent">{{ industry.case_study.result }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <a href="/industries/{{ industry.id }}" class="btn btn--primary btn--block">
+                        Explore {{ industry.name }} Solutions →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Cross-Industry Benefits -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Universal Benefits</h2>
+            <p class="section__subtitle">
+                Core advantages that apply across all industries
+            </p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--dollar"></i>
+                </div>
+                <h3 class="benefit__title">Dramatic Cost Reduction</h3>
+                <p class="benefit__description">
+                    75-85% reduction in inspection and monitoring costs across all applications
+                </p>
+            </div>
+            
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--shield"></i>
+                </div>
+                <h3 class="benefit__title">Enhanced Safety</h3>
+                <p class="benefit__description">
+                    Eliminate dangerous manual inspections and detect threats before they escalate
+                </p>
+            </div>
+            
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--clock"></i>
+                </div>
+                <h3 class="benefit__title">Real-Time Intelligence</h3>
+                <p class="benefit__description">
+                    Instant insights and alerts enable proactive decision-making
+                </p>
+            </div>
+            
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--chart"></i>
+                </div>
+                <h3 class="benefit__title">Predictive Analytics</h3>
+                <p class="benefit__description">
+                    AI-powered predictions prevent failures and optimize maintenance schedules
+                </p>
+            </div>
+            
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--check"></i>
+                </div>
+                <h3 class="benefit__title">Regulatory Compliance</h3>
+                <p class="benefit__description">
+                    Automated documentation and reporting ensure compliance standards are met
+                </p>
+            </div>
+            
+            <div class="benefit">
+                <div class="benefit__icon">
+                    <i class="icon icon--globe"></i>
+                </div>
+                <h3 class="benefit__title">Scalable Solutions</h3>
+                <p class="benefit__description">
+                    From small facilities to enterprise deployments, our solutions scale with you
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Industry Comparison -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Solution Mapping</h2>
+            <p class="section__subtitle">
+                Which products serve each industry best
+            </p>
+        </div>
+        
+        <div class="solution-matrix">
+            <table class="table table--matrix">
+                <thead>
+                    <tr>
+                        <th>Industry</th>
+                        <th>Aura Analytics</th>
+                        <th>Aegis Defense</th>
+                        <th>Primary Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Oil & Gas</td>
+                        <td><i class="icon icon--check text-success"></i></td>
+                        <td><i class="icon icon--check text-muted"></i></td>
+                        <td>Pipeline Inspection</td>
+                    </tr>
+                    <tr>
+                        <td>Infrastructure</td>
+                        <td><i class="icon icon--check text-success"></i></td>
+                        <td><i class="icon icon--check text-muted"></i></td>
+                        <td>Asset Monitoring</td>
+                    </tr>
+                    <tr>
+                        <td>Defense</td>
+                        <td><i class="icon icon--check text-muted"></i></td>
+                        <td><i class="icon icon--check text-success"></i></td>
+                        <td>Threat Detection</td>
+                    </tr>
+                    <tr>
+                        <td>Construction</td>
+                        <td><i class="icon icon--check text-success"></i></td>
+                        <td><i class="icon icon--check text-muted"></i></td>
+                        <td>Progress Tracking</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="text-center text-muted mt-3">
+                <i class="icon icon--check text-success"></i> Primary solution
+                <i class="icon icon--check text-muted"></i> Secondary/optional solution
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section cta-section--gradient">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">{{ cta.title }}</h2>
+            <p class="cta-section__description">{{ cta.description }}</p>
+            <a href="/contact/" class="btn btn--white btn--large">
+                {{ cta.button_text }}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Industries Served by Adaptive Auto Hub",
+    "description": "AI-driven drone solutions for multiple industries",
+    "numberOfItems": {{ industries|length }},
+    "itemListElement": [
+        {% for industry in industries %}
+        {
+            "@type": "ListItem",
+            "position": {{ loop.index }},
+            "item": {
+                "@type": "Service",
+                "name": "{{ industry.name }} Solutions",
+                "description": "{{ industry.description }}",
+                "url": "https://adaptiveautohub.com/industries/{{ industry.id }}"
+            }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>
+{% endblock %}

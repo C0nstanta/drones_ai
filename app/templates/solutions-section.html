@@ -1,0 +1,169 @@
+<!-- /templates/solutions-section.html -->
+<!-- Solutions Section Template for Flask Integration -->
+
+<section class="solutions-section" id="solutions">
+    <div class="solutions-container">
+        <!-- Section Header -->
+        <div class="solutions-header">
+            <h2>Our AI Solutions</h2>
+            <p>Cutting-edge artificial intelligence solutions tailored for your business needs</p>
+        </div>
+        
+        <!-- Solutions Grid -->
+        <div class="solutions-grid">
+            <!-- Example Solution Cards - Replace with Flask template logic -->
+            
+            <!-- Solution 1 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/computer-vision.webp') }}" 
+                         alt="Computer Vision Solutions"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Computer Vision</h3>
+                    <p class="solution-card-description">
+                        Advanced image recognition and analysis systems for quality control, 
+                        security, and automated visual inspection.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">Deep Learning</span>
+                        <span class="solution-tag">Image Recognition</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Solution 2 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/nlp.webp') }}" 
+                         alt="Natural Language Processing"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Natural Language Processing</h3>
+                    <p class="solution-card-description">
+                        Intelligent text analysis and generation for chatbots, sentiment analysis, 
+                        and automated document processing.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">NLP</span>
+                        <span class="solution-tag">Text Analytics</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Solution 3 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/predictive-analytics.webp') }}" 
+                         alt="Predictive Analytics"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Predictive Analytics</h3>
+                    <p class="solution-card-description">
+                        Data-driven forecasting models for business intelligence, risk assessment, 
+                        and strategic decision making.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">Machine Learning</span>
+                        <span class="solution-tag">Data Science</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Solution 4 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/automation.webp') }}" 
+                         alt="Process Automation"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Intelligent Automation</h3>
+                    <p class="solution-card-description">
+                        AI-powered workflow automation to streamline operations and reduce manual 
+                        processing time by up to 80%.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">RPA</span>
+                        <span class="solution-tag">Workflow AI</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Solution 5 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/recommendation.webp') }}" 
+                         alt="Recommendation Systems"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Recommendation Engine</h3>
+                    <p class="solution-card-description">
+                        Personalized recommendation systems that increase engagement and conversion 
+                        through intelligent user behavior analysis.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">Personalization</span>
+                        <span class="solution-tag">ML Models</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Solution 6 -->
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ url_for('static', filename='images/solutions/anomaly-detection.webp') }}" 
+                         alt="Anomaly Detection"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">Anomaly Detection</h3>
+                    <p class="solution-card-description">
+                        Real-time monitoring and detection systems for fraud prevention, 
+                        cybersecurity, and quality assurance.
+                    </p>
+                    <div class="solution-card-tags">
+                        <span class="solution-tag">Security AI</span>
+                        <span class="solution-tag">Real-time</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- For Flask: Use Jinja2 loop -->
+            {# 
+            {% for solution in solutions %}
+            <article class="solution-card">
+                <div class="solution-card-image">
+                    <img src="{{ solution.image_url }}" 
+                         alt="{{ solution.title }}"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">{{ solution.title }}</h3>
+                    <p class="solution-card-description">{{ solution.description }}</p>
+                    {% if solution.tags %}
+                    <div class="solution-card-tags">
+                        {% for tag in solution.tags %}
+                        <span class="solution-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+            #}
+        </div>
+    </div>
+</section>
+
+<!-- Solution Modal (Created dynamically by JS) -->
+
+<!-- Scripts -->
+<script type="module">
+    import solutionsController from "{{ url_for('static', filename='js/solutions-controller.js') }}";
+    // Controller auto-initializes
+</script>

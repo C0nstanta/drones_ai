@@ -1,0 +1,305 @@
+<!-- /app/templates/main/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero hero--primary">
+    <div class="container">
+        <div class="hero__content">
+            <h1 class="hero__title">
+                {{ hero.title }}
+                <span class="text-accent">{{ hero.subtitle }}</span>
+            </h1>
+            <p class="hero__description">{{ hero.description }}</p>
+            <div class="hero__actions">
+                <a href="/products/" class="btn btn--primary btn--large">
+                    {{ hero.cta_primary }}
+                </a>
+                <a href="/contact/" class="btn btn--secondary btn--large">
+                    {{ hero.cta_secondary }}
+                </a>
+            </div>
+        </div>
+        <div class="hero__visual">
+            <picture>
+                <source srcset="/static/images/optimized/hero-drone_1200w.webp 1200w,
+                                /static/images/optimized/hero-drone_800w.webp 800w,
+                                /static/images/optimized/hero-drone_400w.webp 400w"
+                        type="image/webp">
+                <source srcset="/static/images/optimized/hero-drone_1200w.jpg 1200w,
+                                /static/images/optimized/hero-drone_800w.jpg 800w,
+                                /static/images/optimized/hero-drone_400w.jpg 400w"
+                        type="image/jpeg">
+                <img src="/static/images/hero-drone.jpg" 
+                    alt="AI-powered drone inspection"
+                    class="hero__image"
+                    loading="eager"
+                    width="600"
+                    height="400">
+            </picture>
+        </div>
+    </div>
+</section>
+
+<!-- Solutions Section -->
+<section class="section" id="solutions">
+    <div class="container">
+        <div class="solutions-header">
+            <h2>Our AI Solutions</h2>
+            <p>Cutting-edge artificial intelligence solutions tailored for your business needs</p>
+        </div>
+        
+        <div class="solutions-grid" id="solutions-grid">
+            {% for solution in solutions %}
+            <article class="solution-card" data-solution-id="{{ solution.id }}">
+                <div class="solution-card-image">
+                    <img src="{{ solution.image }}" 
+                         alt="{{ solution.title }}"
+                         loading="lazy"
+                         onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                </div>
+                <div class="solution-card-content">
+                    <h3 class="solution-card-title">{{ solution.title }}</h3>
+                    <p class="solution-card-description">{{ solution.description }}</p>
+                    <div class="solution-card-tags">
+                        {% for tag in solution.tags %}
+                        <span class="solution-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Solution Modal (hidden by default) -->
+<div class="solution-modal" id="solution-modal" aria-hidden="true">
+    <div class="solution-modal-overlay"></div>
+    <div class="solution-modal-content">
+        <button class="solution-modal-close" aria-label="Close modal">&times;</button>
+        <div class="solution-modal-body"></div>
+    </div>
+</div>
+
+
+<!-- Impact Metrics -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-card__value">{{ metrics.jobs_created }}</div>
+                <div class="metric-card__label">US Jobs Created</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-card__value">{{ metrics.cost_savings }}</div>
+                <div class="metric-card__label">Cost Reduction</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-card__value">{{ metrics.investment }}</div>
+                <div class="metric-card__label">E-2 Investment</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-card__value">{{ metrics.market_growth }}</div>
+                <div class="metric-card__label">Market Growth</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Overview -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Revolutionary AI Solutions</h2>
+            <p class="section__subtitle">
+                Two powerful platforms that transform how organizations inspect infrastructure and secure assets
+            </p>
+        </div>
+        
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card product-card--{{ product.icon }}">
+                <div class="product-card__icon">
+                    <i class="icon icon--{{ product.icon }}"></i>
+                </div>
+                <h3 class="product-card__name">{{ product.name }}</h3>
+                <p class="product-card__tagline">{{ product.tagline }}</p>
+                <p class="product-card__description">{{ product.description }}</p>
+                
+                <ul class="product-card__features">
+                    {% for feature in product.features %}
+                    <li>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <a href="{{ product.link }}" class="btn btn--primary btn--block">
+                    Learn More <span class="btn__arrow">→</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases -->
+<section class="section bg-dark text-white">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Proven Applications</h2>
+            <p class="section__subtitle">
+                From pipeline inspection to perimeter defense, our solutions deliver measurable results
+            </p>
+        </div>
+        
+        <div class="use-cases">
+            <div class="use-case">
+                <img src="/static/images/use-cases/pipeline.webp" 
+                     alt="Pipeline inspection"
+                     class="use-case__image"
+                     loading="lazy"
+                     width="400"
+                     height="300">
+                <div class="use-case__content">
+                    <h3>Oil & Gas Pipeline Inspection</h3>
+                    <p>Reduce inspection costs by 75-85% while improving defect detection accuracy to 98%.</p>
+                    <a href="/industries/oil-gas" class="link link--light">Explore Oil & Gas Solutions →</a>
+                </div>
+            </div>
+            
+            <div class="use-case">
+                <img src="/static/images/use-cases/infrastructure.webp" 
+                     alt="Infrastructure monitoring"
+                     class="use-case__image"
+                     loading="lazy"
+                     width="400"
+                     height="300">
+                <div class="use-case__content">
+                    <h3>Critical Infrastructure Monitoring</h3>
+                    <p>24/7 automated monitoring of bridges, utilities, and drainage systems.</p>
+                    <a href="/industries/infrastructure" class="link link--light">Explore Infrastructure Solutions →</a>
+                </div>
+            </div>
+            
+            <div class="use-case">
+                <img src="/static/images/use-cases/defense.webp" 
+                     alt="Defense applications"
+                     class="use-case__image"
+                     loading="lazy"
+                     width="400"
+                     height="300">
+                <div class="use-case__content">
+                    <h3>Defense & Security</h3>
+                    <p>360° perimeter protection with AI-powered threat detection and classification.</p>
+                    <a href="/industries/defense-security" class="link link--light">Explore Defense Solutions →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">What Our Clients Say</h2>
+        </div>
+        
+        <div class="testimonials">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+                <blockquote class="testimonial-card__quote">
+                    "{{ testimonial.quote }}"
+                </blockquote>
+                <div class="testimonial-card__author">
+                    <strong>{{ testimonial.client }}</strong>
+                    <span>{{ testimonial.industry }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Partners -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Strategic Partnerships</h2>
+            <p class="section__subtitle">
+                Collaborating with industry leaders to deliver exceptional solutions
+            </p>
+        </div>
+        
+        <div class="partners">
+            {% for partner in partners %}
+            <div class="partner-card">
+                <img src="/static/images/partners/{{ partner.name|lower|replace(' ', '-') }}-logo.png" 
+                     alt="{{ partner.name }}"
+                     class="partner-card__logo"
+                     width="200"
+                     height="80">
+                <p class="partner-card__type">{{ partner.type }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/partnerships/" class="btn btn--secondary">
+                Learn About Our Partnerships
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">Ready to Transform Your Operations?</h2>
+            <p class="cta-section__description">
+                Join industry leaders who are already saving millions with our AI-powered solutions.
+            </p>
+            <div class="cta-section__actions">
+                <a href="/contact/" class="btn btn--white btn--large">
+                    Schedule a Demo
+                </a>
+                <a href="/about/" class="btn btn--outline-white btn--large">
+                    Learn About Us
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Adaptive Auto Hub",
+    "description": "AI-driven drone solutions for infrastructure inspection and defense",
+    "url": "https://adaptiveautohub.com",
+    "logo": "https://adaptiveautohub.com/static/images/logo.png",
+    "foundingDate": "2024",
+    "founder": {
+        "@type": "Person",
+        "name": "Adaptive Auto Hub Founder"
+    },
+    "location": {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Salt Lake City",
+            "addressRegion": "UT",
+            "addressCountry": "US"
+        }
+    },
+    "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 7
+    }
+}
+</script>
+{% endblock %}

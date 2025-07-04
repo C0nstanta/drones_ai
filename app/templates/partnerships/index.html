@@ -1,0 +1,214 @@
+<!-- /app/templates/partnerships/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header page-header--partnerships">
+    <div class="container">
+        <h1 class="page-header__title">{{ intro.title }}</h1>
+        <p class="page-header__subtitle">{{ intro.description }}</p>
+    </div>
+</section>
+
+<!-- Partnership Benefits -->
+<section class="section">
+    <div class="container">
+        <div class="benefits-intro">
+            <h2 class="text-center mb-4">Why Partnerships Matter</h2>
+            <div class="benefit-cards">
+                {% for benefit in intro.benefits %}
+                <div class="benefit-card benefit-card--partnership">
+                    <i class="icon icon--check-circle">✓</i>
+                    <p>{{ benefit }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Strategic Partners -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="partners-showcase">
+            {% for partner_key, partner in partnerships.items() %}
+            <div class="partner-showcase {% if loop.index % 2 == 0 %}partner-showcase--reverse{% endif %}">
+                <div class="partner-showcase__visual">
+                    <div class="partner-showcase__logo-placeholder">
+                        {{ partner.name }}
+                    </div>
+                    <div class="partner-showcase__badges">
+                        <span class="badge">{{ partner.type }}</span>
+                        <span class="badge">Since {{ partner.partnership_since }}</span>
+                    </div>
+                </div>
+                
+                <div class="partner-showcase__content">
+                    <h2 class="partner-showcase__name">{{ partner.name }}</h2>
+                    <p class="partner-showcase__description">{{ partner.description }}</p>
+                    
+                    <div class="partner-showcase__collaboration">
+                        <h3>Partnership Focus: {{ partner.collaboration.focus }}</h3>
+                        <p>{{ partner.collaboration.integration }}</p>
+                    </div>
+                    
+                    <div class="partner-showcase__highlights">
+                        <h4>Key Highlights:</h4>
+                        <ul class="highlights-list">
+                            {% for highlight in partner.highlights[:3] %}
+                            <li>{{ highlight }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <a href="/partnerships/{{ partner.id }}" class="btn btn--primary">
+                        Explore {{ partner.name }} Partnership →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Collaboration Model -->
+<section class="section">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">{{ collaboration_model.title }}</h2>
+        </div>
+        
+        <div class="collaboration-process">
+            {% for step in collaboration_model.steps %}
+            <div class="process-step">
+                <div class="process-step__number">{{ loop.index }}</div>
+                <h3 class="process-step__phase">{{ step.phase }}</h3>
+                <p class="process-step__description">{{ step.description }}</p>
+                {% if not loop.last %}
+                <div class="process-step__arrow">→</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Joint Solutions -->
+<section class="section bg-dark text-white">
+    <div class="container">
+        <div class="section__header text-center">
+            <h2 class="section__title">Integrated Solutions</h2>
+            <p class="section__subtitle">
+                Our partnerships enable comprehensive solutions that neither company could deliver alone
+            </p>
+        </div>
+        
+        <div class="joint-solutions">
+            <div class="solution-card">
+                <div class="solution-card__partners">
+                    <span>Adaptive Auto Hub + Elphel</span>
+                </div>
+                <h3 class="solution-card__title">Advanced Imaging Analytics</h3>
+                <p class="solution-card__description">
+                    Combining Elphel's cutting-edge cameras with our AI creates the most accurate 
+                    infrastructure inspection system available.
+                </p>
+                <ul class="solution-card__benefits">
+                    <li>Multi-spectral imaging capabilities</li>
+                    <li>98% defect detection accuracy</li>
+                    <li>Open-source integration options</li>
+                </ul>
+            </div>
+            
+            <div class="solution-card">
+                <div class="solution-card__partners">
+                    <span>Adaptive Auto Hub + InterProInvest</span>
+                </div>
+                <h3 class="solution-card__title">Complete Defense Platform</h3>
+                <p class="solution-card__description">
+                    Aegis AI paired with RIFF countermeasures provides end-to-end drone threat 
+                    management from detection to neutralization.
+                </p>
+                <ul class="solution-card__benefits">
+                    <li>360° threat detection and response</li>
+                    <li>Battle-tested in 15+ countries</li>
+                    <li>NATO-certified components</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Benefits -->
+<section class="section">
+    <div class="container">
+        <div class="partnership-benefits">
+            <div class="benefits-column">
+                <h3>For Our Customers</h3>
+                <ul class="benefits-list">
+                    {% for benefit in partnership_benefits.for_customers %}
+                    <li>
+                        <i class="icon icon--check">✓</i>
+                        <span>{{ benefit }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="benefits-column">
+                <h3>For Our Partners</h3>
+                <ul class="benefits-list">
+                    {% for benefit in partnership_benefits.for_partners %}
+                    <li>
+                        <i class="icon icon--check">✓</i>
+                        <span>{{ benefit }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section cta-section--gradient">
+    <div class="container">
+        <div class="cta-section__content">
+            <h2 class="cta-section__title">{{ cta.title }}</h2>
+            <p class="cta-section__description">{{ cta.description }}</p>
+            <a href="/contact/?interest=partnership" class="btn btn--white btn--large">
+                {{ cta.button_text }}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Strategic Partnerships",
+    "description": "{{ intro.description }}",
+    "url": "https://adaptiveautohub.com/partnerships",
+    "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+            {
+                "@type": "Organization",
+                "position": 1,
+                "name": "Elphel Inc.",
+                "description": "Technology partner for advanced imaging solutions"
+            },
+            {
+                "@type": "Organization", 
+                "position": 2,
+                "name": "InterProInvest",
+                "description": "Defense systems partner with RIFF counter-drone platform"
+            }
+        ]
+    }
+}
+</script>
+{% endblock %}

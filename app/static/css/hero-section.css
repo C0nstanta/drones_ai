@@ -1,0 +1,424 @@
+/* /static/css/hero-section.css */
+
+/**
+ * Hero Section Styles
+ * Performance-optimized CSS for hero animations
+ * @version 1.0.0
+ */
+
+/* ===========================
+   Hero Container & Layout
+   =========================== */
+
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+.hero-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Particle Canvas Background */
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.5s forwards;
+}
+
+/* ===========================
+   Typography & Text Animation
+   =========================== */
+
+.hero-headline {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #64ffda 0%, #63a4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.hero-subheadline {
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Text Split Animation Classes */
+.text-split {
+    display: inline-block;
+}
+
+.text-fragment {
+    display: inline-block;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.text-space {
+    width: 0.3em;
+}
+
+/* Word Reveal Animation */
+.word-reveal {
+    animation: wordReveal 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    animation-delay: calc(var(--fragment-index) * 80ms);
+}
+
+.word-reveal-subtle {
+    animation: wordRevealSubtle 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    animation-delay: calc(var(--fragment-index) * 50ms + 400ms);
+}
+
+@keyframes wordReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotateX(-30deg);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes wordRevealSubtle {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   Counter Styles
+   =========================== */
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.hero-counter {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #64ffda;
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.counter-ready {
+    will-change: contents;
+}
+
+.counter-animating {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.counter-complete {
+    animation: counterBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes counterBounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ===========================
+   CTA Button Styles
+   =========================== */
+
+.hero-cta-wrapper {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.hero-cta-primary {
+    background: linear-gradient(135deg, #64ffda 0%, #63a4ff 100%);
+    color: #0a0a0a;
+}
+
+.hero-cta-secondary {
+    background: transparent;
+    color: #64ffda;
+    border: 2px solid #64ffda;
+}
+
+/* CTA Hover Effects */
+.hero-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.hero-cta:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+}
+
+.hero-cta-primary:hover {
+    background: linear-gradient(135deg, #7fffea 0%, #73b4ff 100%);
+}
+
+.hero-cta-secondary:hover {
+    background: rgba(100, 255, 218, 0.1);
+    border-color: #7fffea;
+    color: #7fffea;
+}
+
+/* CTA Animation on Load */
+.hero-cta-animated {
+    animation: ctaEntrance 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    animation-delay: 1.2s;
+}
+
+@keyframes ctaEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   Background Effects
+   =========================== */
+
+.hero-gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        rgba(10, 10, 10, 0.4) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Animated Gradient Background (Fallback) */
+@supports not (canvas: 2d) {
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            #64ffda 0%,
+            #63a4ff 25%,
+            #f06292 50%,
+            #64ffda 75%,
+            #63a4ff 100%
+        );
+        animation: gradientShift 20s ease infinite;
+        opacity: 0.1;
+        z-index: 0;
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+        padding: 4rem 0;
+    }
+    
+    .hero-container {
+        padding: 1.5rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .hero-cta-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .hero-cta {
+        width: 100%;
+    }
+}
+
+/* ===========================
+   Performance Optimizations
+   =========================== */
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .text-fragment,
+    .hero-counter,
+    .hero-cta {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    #particle-canvas {
+        display: none;
+    }
+    
+    .hero-section::before {
+        animation: none;
+    }
+}
+
+/* Force GPU acceleration for smooth animations */
+.hero-section * {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+}
+
+/* ===========================
+   Utility Animations
+   =========================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
