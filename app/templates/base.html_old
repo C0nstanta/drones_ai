@@ -19,7 +19,7 @@
     <meta property="og:description" content="{{ meta_description|default('AI-driven drone solutions for infrastructure and defense') }}">
     <meta property="og:type" content="{{ og_type|default('website') }}">
     <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.jpg') }}">
+    <meta property="og:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.png') }}">
     <meta property="og:site_name" content="Adaptive Auto Hub">
     <meta property="og:locale" content="en_US">
     
@@ -27,7 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ page_title|default('Adaptive Auto Hub') }}">
     <meta name="twitter:description" content="{{ meta_description|default('AI-driven drone solutions') }}">
-    <meta name="twitter:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.jpg') }}">
+    <meta name="twitter:image" content="{{ og_image|default('https://adaptiveautohub.com/static/images/og-default.png') }}">
     
     <!-- Canonical URL -->
     {% if canonical_url %}

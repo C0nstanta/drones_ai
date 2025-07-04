@@ -71,7 +71,7 @@ def get_company_data():
         'founder': {
             'name': 'Adaptive Auto Hub Founder',
             'title': 'CEO & Founder',
-            'image': '/static/images/about/founder.jpg',
+            'image': '/static/images/about/founder.png',
             'bio': 'An experienced technology entrepreneur with a passion for applying AI to solve critical infrastructure challenges. E-2 Treaty Investor bringing cutting-edge drone technology to the US market.',
             'investment': '$120,000 personal investment',
             'experience': [

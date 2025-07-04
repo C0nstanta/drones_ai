@@ -161,7 +161,7 @@ class ContentManager:
                     'annual_savings': '$2.4M'
                 },
                 'quote': 'Aura has revolutionized our inspection program.',
-                'image': '/static/images/case-studies/pipeline.jpg'
+                'image': '/static/images/case-studies/pipeline.png'
             },
             {
                 'id': 'military-base-protection',
@@ -178,7 +178,7 @@ class ContentManager:
                     'coverage': 'Complete perimeter'
                 },
                 'quote': 'Best-in-class drone defense system.',
-                'image': '/static/images/case-studies/defense.jpg'
+                'image': '/static/images/case-studies/defense.png'
             }
         ]
         

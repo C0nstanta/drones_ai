@@ -17,7 +17,7 @@ def get_aura_data():
         'name': 'Aura Analytics',
         'tagline': 'The Intelligent Brain for Your Imaging Systems',
         'description': 'Transform infrastructure inspection with AI-powered analytics that delivers real-time insights, reduces costs by 75-85%, and prevents failures before they happen.',
-        'hero_image': '/static/images/products/aura-hero.jpg',
+        'hero_image': '/static/images/products/aura-hero.png',
         'features': [
             {
                 'title': 'Real-Time Object Recognition',
@@ -107,7 +107,7 @@ def get_aegis_data():
         'name': 'Aegis Defense',
         'tagline': 'AI-Powered Counter-Drone Protection',
         'description': 'Protect critical infrastructure with autonomous drone detection, classification, and neutralization powered by advanced AI.',
-        'hero_image': '/static/images/products/aegis-hero.jpg',
+        'hero_image': '/static/images/products/aegis-hero.png',
         'features': [
             {
                 'title': 'Multi-Sensor Fusion',
@@ -201,7 +201,7 @@ def get_products_data():
             'summary': 'Transform infrastructure inspection with AI that sees what humans miss.',
             'key_benefit': '75-85% Cost Reduction',
             'markets': ['Oil & Gas', 'Infrastructure', 'Construction'],
-            'image': '/static/images/products/aura-hero.jpg',
+            'image': '/static/images/products/aura-hero.png',
             'url': '/products/aura'
         },
         {
@@ -211,7 +211,7 @@ def get_products_data():
             'summary': 'Protect critical assets with AI-powered counter-drone technology.',
             'key_benefit': '360° Threat Detection',
             'markets': ['Defense', 'Critical Infrastructure', 'Public Safety'],
-            'image': '/static/images/products/aegis-hero.jpg',
+            'image': '/static/images/products/aegis-hero.png',
             'url': '/products/aegis'
         }
     ]

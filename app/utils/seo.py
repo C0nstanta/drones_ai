@@ -15,7 +15,7 @@ class SEOHelper:
     DEFAULT_TITLE = "Adaptive Auto Hub - AI-Driven Drone Solutions"
     DEFAULT_DESCRIPTION = "Revolutionary AI-powered drone analytics and defense systems. 75-85% cost savings for infrastructure inspection. E-2 investor creating 7 US jobs."
     DEFAULT_KEYWORDS = "drone analytics, AI inspection, counter-drone, infrastructure monitoring, pipeline inspection, defense technology"
-    DEFAULT_IMAGE = "/static/images/og-default.jpg"
+    DEFAULT_IMAGE = "/static/images/og-default.png"
     
     @staticmethod
     def generate_meta_tags(

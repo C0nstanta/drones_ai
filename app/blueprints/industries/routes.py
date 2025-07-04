@@ -19,7 +19,7 @@ def get_industries_data():
             'name': 'Oil & Gas',
             'title': 'Pipeline Inspection Revolution',
             'description': 'Transform pipeline monitoring with AI-powered drone analytics that reduce costs by 75-85% while improving safety and compliance.',
-            'hero_image': '/static/images/industries/oil-gas-hero.jpg',
+            'hero_image': '/static/images/industries/oil-gas-hero.png',
             'market_size': '$2.3B by 2028',
             'growth_rate': '23% CAGR',
             'challenges': [
@@ -55,7 +55,7 @@ def get_industries_data():
             'name': 'Civil Infrastructure',
             'title': 'Smart Infrastructure Monitoring',
             'description': 'Protect public safety and reduce maintenance costs with continuous AI monitoring of bridges, utilities, and drainage systems.',
-            'hero_image': '/static/images/industries/infrastructure-hero.jpg',
+            'hero_image': '/static/images/industries/infrastructure-hero.png',
             'market_size': '$1.8B by 2027',
             'growth_rate': '19% CAGR',
             'challenges': [
@@ -92,7 +92,7 @@ def get_industries_data():
             'name': 'Defense & Security',
             'title': 'Advanced Threat Protection',
             'description': 'Secure critical assets with AI-powered drone detection and classification systems proven in 15+ countries.',
-            'hero_image': '/static/images/industries/defense-hero.jpg',
+            'hero_image': '/static/images/industries/defense-hero.png',
             'market_size': '$4.2B by 2029',
             'growth_rate': '28% CAGR',
             'challenges': [
@@ -129,7 +129,7 @@ def get_industries_data():
             'name': 'Construction & Development',
             'title': 'Project Intelligence Platform',
             'description': 'Optimize construction projects with daily aerial monitoring, progress tracking, and quality control.',
-            'hero_image': '/static/images/industries/construction-hero.jpg',
+            'hero_image': '/static/images/industries/construction-hero.png',
             'market_size': '$890M by 2026',
             'growth_rate': '21% CAGR',
             'challenges': [
